@@ -15,16 +15,25 @@ default = ["signer"]
 # Signing and key handling. Without it the crate only verifies against a published key ring,
 # which is what members' devices and cfrm need.
 signer = ["dep:rand_core"]
+# Low-level signing without durable publication; explicitly opt in.
+volatile-signer = ["signer"]
+libsql = ["signer", "dep:crlt"]
 
 [dependencies]
+ciborium-ll = "0.2.2"
 coset = { version = "0.4.2", default-features = false }
 ed25519-dalek = { version = "3", default-features = false, features = ["fast", "zeroize"] }
 rand_core = { version = "0.10", optional = true, default-features = false }
 sha2 = { version = "0.11", default-features = false }
 zeroize = { version = "1.8", default-features = false }
 
-[dev-dependencies]
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+crlt = { git = "https://github.com/corbet-foss/crlt", rev = "6b94dacd7fa04aa8847c62c6471a1fc5c0f6c9dc", optional = true }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 getrandom = { version = "0.4", features = ["sys_rng"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time", "sync"] }
+tempfile = "3"
 
 [lints.rust]
 unsafe_code = "forbid"
