@@ -19,7 +19,7 @@ fn signer_with(issuer: &str, byte: u8, now: u64) -> Signer {
 }
 
 fn signer() -> Signer {
-    signer_with("cmnt", 1, NOW)
+    signer_with("cmty", 1, NOW)
 }
 
 /// The ring as a member's device sees it: encoded, published, decoded.
@@ -212,7 +212,7 @@ fn tampered_protected_header_is_rejected() {
     );
 
     // A flipped bit inside the protected header bytes (in the issuer text).
-    let at = message.windows(4).position(|w| w == b"cmnt").unwrap();
+    let at = message.windows(4).position(|w| w == b"cmty").unwrap();
     let mut flipped = message.clone();
     flipped[at] ^= 0x02;
     assert_eq!(
@@ -255,8 +255,8 @@ fn unknown_key_id_is_rejected() {
 
 #[test]
 fn key_of_another_signer_is_unknown() {
-    let mut community = signer_with("cmnt", 1, NOW);
-    let other = signer_with("cmnt", 2, NOW);
+    let mut community = signer_with("cmty", 1, NOW);
+    let other = signer_with("cmty", 2, NOW);
     let message = community
         .sign(Kind::Credential, b"x", NOW, NOW + DAY)
         .unwrap();
@@ -269,7 +269,7 @@ fn key_of_another_signer_is_unknown() {
 #[test]
 fn levels_do_not_accept_each_other() {
     // Separate keys per level: the global ring does not know community keys.
-    let mut community = signer_with("cmnt", 1, NOW);
+    let mut community = signer_with("cmty", 1, NOW);
     let global = signer_with("cglb", 2, NOW);
     let message = community
         .sign(Kind::RevocationListSnapshot, b"x", NOW, NOW + DAY)
@@ -484,7 +484,7 @@ fn signature_outside_the_key_period_is_rejected() {
     );
 
     // Issued before the key's activation.
-    let late_start = signer_with("cmnt", 1, NOW + 1_000);
+    let late_start = signer_with("cmty", 1, NOW + 1_000);
     let early = rogue
         .sign(Kind::Credential, b"early", NOW + 100, NOW + DAY)
         .unwrap();
@@ -544,7 +544,7 @@ fn signer_construction_is_checked() {
         SignError::InvalidIssuer
     );
     assert_eq!(
-        Signer::new("cmnt", key(1), NOW, 0).unwrap_err(),
+        Signer::new("cmty", key(1), NOW, 0).unwrap_err(),
         SignError::InvalidMaxValidity
     );
 }
@@ -612,7 +612,7 @@ fn issuance_changes_private_state_but_never_the_active_public_ring() {
 
 #[test]
 fn retention_rounding_saturates_without_premature_expiry() {
-    let mut signer = signer_with("cmnt", 1, u64::MAX - 100);
+    let mut signer = signer_with("cmty", 1, u64::MAX - 100);
     let message = signer
         .sign(Kind::Credential, b"x", u64::MAX - 99, u64::MAX)
         .unwrap();
@@ -793,7 +793,7 @@ fn no_secret_in_debug_output() {
 
     let secret = SecretKey::from_seed(&mut [0xa5u8; 32]);
     let key_id = secret.key_id();
-    let mut signer = Signer::new("cmnt", secret, NOW, MAX_VALIDITY).unwrap();
+    let mut signer = Signer::new("cmty", secret, NOW, MAX_VALIDITY).unwrap();
     let message = signer.sign(Kind::Credential, b"x", NOW, NOW + DAY).unwrap();
     let verified = signer.verify(&message, Kind::Credential, NOW).unwrap();
     let secret = SecretKey::from_seed(&mut [0xa5u8; 32]);

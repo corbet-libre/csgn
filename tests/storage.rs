@@ -8,7 +8,7 @@ fn key(byte: u8) -> SecretKey {
 }
 
 async fn round_trip<S: Store + Clone>(store: S) {
-    let mut signer = PersistentSigner::create(store.clone(), "cmnt:test", key(1), 100, 1000)
+    let mut signer = PersistentSigner::create(store.clone(), "cmty:test", key(1), 100, 1000)
         .await
         .unwrap();
     let mut messages = Vec::new();
@@ -22,17 +22,17 @@ async fn round_trip<S: Store + Clone>(store: S) {
                 .unwrap(),
         ));
     }
-    let saved = store.load("cmnt:test").await.unwrap().unwrap();
+    let saved = store.load("cmty:test").await.unwrap().unwrap();
     let encoded = saved.state.to_cbor();
     assert!(!encoded.windows(14).any(|w| w == b"opaque payload"));
     assert_eq!(saved.state.key_ring().active().unwrap().signed_until(), 0);
     drop(signer);
-    let mut signer = PersistentSigner::open(store.clone(), "cmnt:test", key(1), 102)
+    let mut signer = PersistentSigner::open(store.clone(), "cmty:test", key(1), 102)
         .await
         .unwrap();
     signer.rotate(key(2), 103).await.unwrap();
     drop(signer);
-    let mut signer = PersistentSigner::open(store.clone(), "cmnt:test", key(2), 104)
+    let mut signer = PersistentSigner::open(store.clone(), "cmty:test", key(2), 104)
         .await
         .unwrap();
     let ring = signer.key_ring().unwrap().clone();
@@ -60,11 +60,11 @@ async fn round_trip<S: Store + Clone>(store: S) {
             .is_ok()
     );
     assert!(matches!(
-        PersistentSigner::create(store.clone(), "cmnt:test", key(3), 204, 1000).await,
+        PersistentSigner::create(store.clone(), "cmty:test", key(3), 204, 1000).await,
         Err(StorageError::Conflict)
     ));
     assert!(matches!(
-        PersistentSigner::open(store.clone(), "cmnt:test", key(1), 205).await,
+        PersistentSigner::open(store.clone(), "cmty:test", key(1), 205).await,
         Err(StorageError::Sign(SignError::KeyMismatch))
     ));
     assert!(matches!(
@@ -75,7 +75,7 @@ async fn round_trip<S: Store + Clone>(store: S) {
 }
 
 async fn stale_writer<S: Store + Clone>(store: S) {
-    let mut old = PersistentSigner::create(store.clone(), "cmnt:race", key(1), 10, 100)
+    let mut old = PersistentSigner::create(store.clone(), "cmty:race", key(1), 10, 100)
         .await
         .unwrap();
     let delivered = old
@@ -83,7 +83,7 @@ async fn stale_writer<S: Store + Clone>(store: S) {
         .await
         .unwrap();
     let delivered_ring = old.key_ring().unwrap().clone();
-    let mut newer = PersistentSigner::open(store.clone(), "cmnt:race", key(1), 11)
+    let mut newer = PersistentSigner::open(store.clone(), "cmty:race", key(1), 11)
         .await
         .unwrap();
     newer.rotate(key(2), 12).await.unwrap();
@@ -104,7 +104,7 @@ async fn stale_writer<S: Store + Clone>(store: S) {
         old.rotate(key(3), 14).await,
         Err(StorageError::ReloadRequired)
     );
-    let saved = store.load("cmnt:race").await.unwrap().unwrap();
+    let saved = store.load("cmty:race").await.unwrap().unwrap();
     assert_eq!(
         saved.state.key_ring().active().unwrap().key_id(),
         key(2).key_id()
@@ -165,7 +165,7 @@ mod database {
     async fn close_and_reopen_database_preserves_exact_retention() {
         let (dir, db) = local().await;
         let store = LibsqlStore::new(db.community("community-a").unwrap());
-        let mut signer = PersistentSigner::create(store, "cmnt", key(1), 10, 100)
+        let mut signer = PersistentSigner::create(store, "cmty", key(1), 10, 100)
             .await
             .unwrap();
         let message = signer
@@ -178,7 +178,7 @@ mod database {
         let db = Db::open(Config::new(url, "")).await.unwrap();
         migrate(&db).await;
         let store = LibsqlStore::new(db.community("community-a").unwrap());
-        let mut signer = PersistentSigner::open(store, "cmnt", key(1), 12)
+        let mut signer = PersistentSigner::open(store, "cmty", key(1), 12)
             .await
             .unwrap();
         signer.rotate(key(2), 13).await.unwrap();
@@ -224,11 +224,11 @@ mod database {
         let (_dir, db) = local().await;
         let store = LibsqlStore::new(db.community("race").unwrap());
         let (a, b) = tokio::join!(
-            PersistentSigner::create(store.clone(), "cmnt", key(1), 10, 100),
-            PersistentSigner::create(store.clone(), "cmnt", key(2), 10, 100)
+            PersistentSigner::create(store.clone(), "cmty", key(1), 10, 100),
+            PersistentSigner::create(store.clone(), "cmty", key(2), 10, 100)
         );
         assert_ne!(a.is_ok(), b.is_ok());
-        let saved = store.load("cmnt").await.unwrap().unwrap();
+        let saved = store.load("cmty").await.unwrap().unwrap();
         let (a, b) = tokio::join!(
             store.compare_exchange(Some(saved.revision), &saved.state),
             store.compare_exchange(Some(saved.revision), &saved.state)
@@ -242,17 +242,17 @@ mod database {
         let (_dir, db) = local().await;
         let scope = db.community("corrupt").unwrap();
         let store = LibsqlStore::new(scope.clone());
-        PersistentSigner::create(store.clone(), "cmnt", key(1), 10, 100)
+        PersistentSigner::create(store.clone(), "cmty", key(1), 10, 100)
             .await
             .unwrap();
         scope
             .execute(
                 "UPDATE csgn_state SET state = ?1 WHERE issuer = ?2",
-                crlt::params![b"invalid state".to_vec(), "cmnt"],
+                crlt::params![b"invalid state".to_vec(), "cmty"],
             )
             .await
             .unwrap();
-        assert_eq!(store.load("cmnt").await, Err(StorageError::InvalidState));
+        assert_eq!(store.load("cmty").await, Err(StorageError::InvalidState));
     }
 
     #[tokio::test]
@@ -260,12 +260,12 @@ mod database {
         let (_dir, db) = local().await;
         let scope = db.community("failure").unwrap();
         let store = LibsqlStore::new(scope.clone());
-        let mut signer = PersistentSigner::create(store, "cmnt", key(1), 10, 100)
+        let mut signer = PersistentSigner::create(store, "cmty", key(1), 10, 100)
             .await
             .unwrap();
         // A real concurrent deletion forces a CAS failure, not a fake signer.
         scope
-            .execute("DELETE FROM csgn_state WHERE issuer = ?1", ["cmnt"])
+            .execute("DELETE FROM csgn_state WHERE issuer = ?1", ["cmty"])
             .await
             .unwrap();
         assert_eq!(
@@ -282,10 +282,10 @@ mod database {
         let (_dir, db) = local().await;
         let scope = db.community("cancel").unwrap();
         let store = LibsqlStore::new(scope.clone());
-        let mut signer = PersistentSigner::create(store.clone(), "cmnt", key(1), 10, 100)
+        let mut signer = PersistentSigner::create(store.clone(), "cmty", key(1), 10, 100)
             .await
             .unwrap();
-        let before = store.load("cmnt").await.unwrap();
+        let before = store.load("cmty").await.unwrap();
         let lock = scope.tx().await.unwrap();
         let result = tokio::time::timeout(
             std::time::Duration::from_millis(20),
@@ -297,8 +297,8 @@ mod database {
         lock.rollback().await.unwrap();
         // Cancellation may race a commit on remote stores. Reload is mandatory;
         // this locked local case cannot have reached the write.
-        assert_eq!(store.load("cmnt").await.unwrap(), before);
-        let mut reopened = PersistentSigner::open(store, "cmnt", key(1), 12)
+        assert_eq!(store.load("cmty").await.unwrap(), before);
+        let mut reopened = PersistentSigner::open(store, "cmty", key(1), 12)
             .await
             .unwrap();
         assert!(
@@ -320,10 +320,10 @@ mod database {
         migrate(&db).await;
         let scope = db.community("timeout").unwrap();
         let store = LibsqlStore::new(scope.clone());
-        let mut signer = PersistentSigner::create(store.clone(), "cmnt", key(1), 10, 100)
+        let mut signer = PersistentSigner::create(store.clone(), "cmty", key(1), 10, 100)
             .await
             .unwrap();
-        let before = store.load("cmnt").await.unwrap();
+        let before = store.load("cmty").await.unwrap();
         let lock = scope.tx().await.unwrap();
         assert_eq!(
             signer.rotate(key(2), 11).await,
@@ -331,8 +331,8 @@ mod database {
         );
         assert_eq!(signer.key_ring(), Err(StorageError::ReloadRequired));
         lock.rollback().await.unwrap();
-        assert_eq!(store.load("cmnt").await.unwrap(), before);
-        let mut reopened = PersistentSigner::open(store, "cmnt", key(1), 12)
+        assert_eq!(store.load("cmty").await.unwrap(), before);
+        let mut reopened = PersistentSigner::open(store, "cmty", key(1), 12)
             .await
             .unwrap();
         reopened.rotate(key(2), 13).await.unwrap();
@@ -346,7 +346,7 @@ mod database {
     async fn hostile_issuer_text_is_a_bound_value() {
         let (_dir, db) = local().await;
         let store = LibsqlStore::new(db.community("namespace").unwrap());
-        let issuer = "cmnt:' OR 1 = 1; --";
+        let issuer = "cmty:' OR 1 = 1; --";
         let mut signer = PersistentSigner::create(store.clone(), issuer, key(1), 10, 100)
             .await
             .unwrap();
@@ -362,7 +362,7 @@ mod database {
                 .issuer(),
             issuer
         );
-        assert_eq!(store.load("cmnt").await.unwrap(), None);
+        assert_eq!(store.load("cmty").await.unwrap(), None);
         assert!(
             signer
                 .key_ring()
@@ -401,7 +401,7 @@ mod database {
         store.check_query_plans().await.unwrap();
         round_trip(store.clone()).await;
         stale_writer(store).await;
-        for issuer in ["cmnt:test", "cmnt:race"] {
+        for issuer in ["cmty:test", "cmty:race"] {
             scope
                 .execute("DELETE FROM csgn_state WHERE issuer = ?1", [issuer])
                 .await

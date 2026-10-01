@@ -237,7 +237,7 @@ impl KeyRing {
         }
     }
 
-    /// The issuer every message in this ring must name (e.g. `cglb` or `cmnt`).
+    /// The issuer every message in this ring must name (e.g. `cglb` or `cmty`).
     pub fn issuer(&self) -> &str {
         &self.issuer
     }

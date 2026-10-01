@@ -4,9 +4,9 @@ use coset::CborSerializable;
 use coset::cbor::value::Value;
 use csgn::{KeyId, KeyRing, RingError};
 
-/// Ring of test vector 1 (issuer `cmnt`, one active key); see `tests/vectors.rs`.
+/// Ring of test vector 1 (issuer `cmty`, one active key); see `tests/vectors.rs`.
 const RING_1: &str = concat!(
-    "a401020264636d6e740381a70101025820866eefbd6718c8846cd7ddfe43fc74ab1daac4538ff851",
+    "a401020264636d74790381a70101025820866eefbd6718c8846cd7ddfe43fc74ab1daac4538ff851",
     "4ea2ec2d410a41574303320481022006215820d75a980182b10ab7d54bfed3c964073a0ee172f3da",
     "a62325af021a68f707511a3a000100001a6ab13b80041a00278d00",
 );

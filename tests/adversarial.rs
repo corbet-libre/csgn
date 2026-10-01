@@ -7,7 +7,7 @@ use csgn::{KeyRing, Kind, SecretKey, SignError, Signer, SigningState, VerifyErro
 
 fn signer() -> Signer {
     Signer::new(
-        "cmnt:adversarial",
+        "cmty:adversarial",
         SecretKey::from_seed(&mut [42; 32]),
         10,
         100,

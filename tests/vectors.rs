@@ -16,13 +16,13 @@ const KID_1: &str = "866eefbd6718c8846cd7ddfe43fc74ab1daac4538ff8514ea2ec2d410a4
 const PAYLOAD_1: &[u8] = b"csgn test vector";
 const COSE_1: &str = concat!(
     "d2845852a5013202820f3a00010000045820866eefbd6718c8846cd7ddfe43fc74ab1daac4538ff8",
-    "514ea2ec2d410a4157430fa30164636d6e74041a6ab28d00061a6ab13b803a000100006a63726564",
-    "656e7469616ca0506373676e207465737420766563746f7258405de2982e4ebe7c7bdf128067eb2a",
-    "95e0a8da8fa9dd53c32d6f532c3665d916c33301f6ce4cb46c49133f296193a886614ddb5c53f8f9",
-    "145f29b35f5bac1bc109",
+    "514ea2ec2d410a4157430fa30164636d7479041a6ab28d00061a6ab13b803a000100006a63726564",
+    "656e7469616ca0506373676e207465737420766563746f7258409d99588cbdc60a395557303e7aac",
+    "9aee707d5808e7730bf747e79b27bad6dbdc326161c059354413922cff95457790cfde84be2be06e",
+    "1dd3a3784014635afe0c",
 );
 const RING_1: &str = concat!(
-    "a401020264636d6e740381a70101025820866eefbd6718c8846cd7ddfe43fc74ab1daac4538ff851",
+    "a401020264636d74790381a70101025820866eefbd6718c8846cd7ddfe43fc74ab1daac4538ff851",
     "4ea2ec2d410a41574303320481022006215820d75a980182b10ab7d54bfed3c964073a0ee172f3da",
     "a62325af021a68f707511a3a000100001a6ab13b80041a00278d00",
 );
@@ -71,7 +71,7 @@ fn key_ids_are_rfc9679_thumbprints() {
 #[test]
 fn vector_1_verifies_with_its_published_ring() {
     let ring = KeyRing::from_cbor(&hex(RING_1)).unwrap();
-    assert_eq!(ring.issuer(), "cmnt");
+    assert_eq!(ring.issuer(), "cmty");
     assert_eq!(ring.to_cbor(), hex(RING_1));
     let entry = ring.active().unwrap();
     assert_eq!(entry.public_key(), array32(RFC8032_PUBLIC));
@@ -260,7 +260,7 @@ mod signing {
     #[test]
     fn signing_reproduces_vector_1() {
         let key = SecretKey::from_seed(&mut array32(RFC8032_SEED));
-        let mut signer = Signer::new("cmnt", key, NOW, 30 * 86_400).unwrap();
+        let mut signer = Signer::new("cmty", key, NOW, 30 * 86_400).unwrap();
         let message = signer
             .sign(Kind::Credential, PAYLOAD_1, NOW, NOW + 86_400)
             .unwrap();

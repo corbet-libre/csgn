@@ -24,7 +24,7 @@ The [implemented contract](docs/CONTRACT.md) specifies the wire and storage form
   returning a credential or exposing a changed ring.
 
 One issuer and independent keys per global service and per community; use unique,
-fully scoped issuer names, e.g. `cmnt:example` and `cglb:platform`. Times are unsigned
+fully scoped issuer names, e.g. `cmty:example` and `cglb:platform`. Times are unsigned
 Unix seconds supplied by the caller. The maximum lifetime is explicit policy
 (e.g. 30 days); every kind, including snapshots, has an expiry. Credentials and
 snapshots are opaque payloads: their owners validate member fields, revisions,
@@ -37,7 +37,7 @@ use csgn::{Kind, SecretKey, Signer};
 
 // Test-only seed. Production seeds come from the platform secret store.
 let key = SecretKey::from_seed(&mut [1; 32]);
-let mut signer = Signer::new("cmnt:example", key, 100, 30 * 86_400)?;
+let mut signer = Signer::new("cmty:example", key, 100, 30 * 86_400)?;
 let cose = signer.sign(Kind::Credential, b"validated credential", 100, 200)?;
 let verified = signer.key_ring().verify(&cose, Kind::Credential, 150)?;
 assert_eq!(verified.payload(), b"validated credential");

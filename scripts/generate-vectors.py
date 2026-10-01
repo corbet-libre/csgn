@@ -30,7 +30,7 @@ def vector(seed, issuer, kind, payload, validity):
     return message, ring
 
 
-one = vector(SEED_1, "cmnt", "credential", b"csgn test vector", 86_400)
+one = vector(SEED_1, "cmty", "credential", b"csgn test vector", 86_400)
 two = vector(bytes([1] * 32), "cglb", "snapshot/revocation-list", bytes.fromhex("a1636e657701"), 3_600)
 fixtures = dict(zip(["COSE_1", "RING_1", "COSE_2", "RING_2"], [*one, *two]))
 root = Path(__file__).resolve().parent.parent
