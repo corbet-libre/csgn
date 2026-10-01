@@ -99,6 +99,42 @@ fn maximum_validity_is_required_and_must_be_positive() {
 }
 
 #[test]
+fn imported_ring_requires_complete_public_metadata_and_bounded_keys() {
+    for label in [1, 3] {
+        assert!(edited(|ring| map(ring).retain(|(key, _)| *key != int(label))).is_err());
+    }
+    for issuer in ["x".repeat(csgn::MAX_ISSUER_LEN + 1), "a\0b".into()] {
+        assert!(edited(|ring| *field(ring, 2) = Value::Text(issuer)).is_err());
+    }
+    assert!(edited(|ring| *field(ring, 3) = Value::Null).is_err());
+    assert!(edited(|ring| map(ring).push((int(5), Value::Null))).is_err());
+    assert!(
+        edited(|ring| {
+            let key = first_key(ring).clone();
+            *field(ring, 3) = Value::Array(vec![key; csgn::MAX_RING_KEYS + 1]);
+        })
+        .is_err()
+    );
+    for label in [1, 3, 4, -1, -2, -65537] {
+        assert!(edited(|ring| map(first_key(ring)).retain(|(key, _)| *key != int(label))).is_err());
+    }
+    for (label, value) in [(1, int(2)), (1, Value::Null), (-2, Value::Null)] {
+        assert!(edited(|ring| *field(first_key(ring), label) = value).is_err());
+    }
+    for (activation, retirement, deadline) in [(10, 9, 86400), (86400, 86401, 86400)] {
+        assert!(
+            edited(|ring| {
+                let key = first_key(ring);
+                *field(key, PARAM_ACTIVATED_AT) = int(activation);
+                map(key).push((int(PARAM_RETIRED_AT), int(retirement)));
+                map(key).push((int(-65539), int(deadline)));
+            })
+            .is_err()
+        );
+    }
+}
+
+#[test]
 fn active_retention_is_absent_and_retired_retention_is_rounded() {
     let mut raw = decode(RING_1);
     assert!(

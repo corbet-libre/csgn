@@ -22,6 +22,33 @@ fn signer() -> Signer {
     signer_with("cmty", 1, NOW)
 }
 
+#[test]
+fn retained_public_key_limit_preserves_the_last_valid_signer() {
+    let mut producer = signer();
+    for index in 1..csgn::MAX_RING_KEYS {
+        producer
+            .sign(Kind::Credential, b"retained", NOW, NOW + DAY)
+            .unwrap();
+        let mut seed = [0; 32];
+        seed[..8].copy_from_slice(&(index as u64).to_be_bytes());
+        producer
+            .rotate(SecretKey::from_seed(&mut seed), NOW)
+            .unwrap();
+    }
+    assert_eq!(producer.key_ring().keys().len(), csgn::MAX_RING_KEYS);
+    let before = producer.state();
+    assert_eq!(producer.rotate(key(2), NOW), Err(SignError::LimitExceeded));
+    assert_eq!(producer.state(), before);
+    let proof = producer
+        .sign(Kind::Credential, b"still usable", NOW, NOW + DAY)
+        .unwrap();
+    assert!(
+        published(&producer)
+            .verify(&proof, Kind::Credential, NOW)
+            .is_ok()
+    );
+}
+
 /// The ring as a member's device sees it: encoded, published, decoded.
 fn published(signer: &Signer) -> KeyRing {
     KeyRing::from_cbor(&signer.key_ring().to_cbor()).unwrap()

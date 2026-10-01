@@ -94,6 +94,8 @@ pub struct Signer {
     active_signed_until: u64,
     clock: u64,
     used_ids: BTreeSet<KeyId>,
+    ring_revision: u64,
+    pending_transition: Option<Vec<u8>>,
 }
 
 impl Signer {
@@ -122,6 +124,8 @@ impl Signer {
             max_validity,
             active_signed_until: 0,
             clock: now,
+            ring_revision: 0,
+            pending_transition: None,
         })
     }
 
@@ -143,6 +147,8 @@ impl Signer {
             active_signed_until: state.active_signed_until,
             clock: now,
             used_ids: state.used_ids,
+            ring_revision: state.ring_revision,
+            pending_transition: state.pending_transition,
         })
     }
 
@@ -154,6 +160,8 @@ impl Signer {
             active_signed_until: self.active_signed_until,
             clock: self.clock,
             used_ids: self.used_ids.clone(),
+            ring_revision: self.ring_revision,
+            pending_transition: self.pending_transition.clone(),
         }
     }
 
@@ -208,6 +216,20 @@ impl Signer {
     /// its secret is wiped. Retired keys that have expired are dropped. A key that was in the ring
     /// before is refused.
     pub fn rotate(&mut self, new_key: SecretKey, now: u64) -> Result<(), SignError> {
+        if self.ring_revision != 0 {
+            return Err(SignError::TransitionRequired);
+        }
+        let ring = self.rotation_ring(&new_key, now, self.active_signed_until)?;
+        self.install_rotation(new_key, ring, now);
+        Ok(())
+    }
+
+    fn rotation_ring(
+        &self,
+        new_key: &SecretKey,
+        now: u64,
+        signed_until: u64,
+    ) -> Result<KeyRing, SignError> {
         if self.used_ids.contains(&new_key.key_id()) {
             return Err(SignError::KeyReused);
         }
@@ -222,33 +244,121 @@ impl Signer {
         {
             return Err(SignError::LimitExceeded);
         }
-        let entry = self.ring.active_mut().ok_or(SignError::KeyMismatch)?;
         if now < self.clock {
             return Err(SignError::ClockBeforeActivation);
         }
+        let mut ring = self.ring.clone();
+        let entry = ring.active_mut().ok_or(SignError::KeyMismatch)?;
         entry.retired_at = Some(now);
-        entry.signed_until = crate::ring::rounded_deadline(self.active_signed_until);
-        self.active_signed_until = 0;
-        self.ring.push(KeyEntry::new_active(
+        entry.signed_until = crate::ring::rounded_deadline(signed_until);
+        ring.push(KeyEntry::new_active(
             new_key.key_id(),
             new_key.verifying_key(),
             now,
         ));
-        // Dropping the previous key wipes it.
+        ring.prune(now);
+        Ok(ring)
+    }
+
+    fn install_rotation(&mut self, new_key: SecretKey, ring: KeyRing, now: u64) {
+        self.ring = ring;
+        self.active_signed_until = 0;
         self.used_ids.insert(new_key.key_id());
         self.clock = now;
         self.active = new_key;
-        self.ring.prune(now);
-        Ok(())
     }
 
-    /// Drops retired keys that have outlived everything they signed.
+    /// Drops retired keys; continuity-mode issuers must use a proof instead.
     pub fn prune(&mut self, now: u64) -> Result<(), SignError> {
+        if self.ring_revision != 0 {
+            return Err(SignError::TransitionRequired);
+        }
         if now < self.clock {
             return Err(SignError::ClockBeforeActivation);
         }
         self.ring.prune(now);
         self.clock = now;
+        Ok(())
+    }
+
+    /// Endorse a rotation and retain its proof in memory. Persist state before publishing.
+    /// The low-level Signer is exported only by the volatile-signer feature.
+    pub fn rotate_with_proof(
+        &mut self,
+        new_key: SecretKey,
+        now: u64,
+        valid_until: u64,
+    ) -> Result<Vec<u8>, SignError> {
+        let revision = self.next_ring_revision()?;
+        let next = self.rotation_ring(&new_key, now, self.active_signed_until.max(valid_until))?;
+        let payload = crate::VerifiedTransition {
+            revision,
+            previous: self.ring.clone(),
+            next: next.clone(),
+        }
+        .payload();
+        let proof = self.sign(Kind::KeyRingTransition, &payload, now, valid_until)?;
+        self.install_rotation(new_key, next, now);
+        self.ring_revision = revision;
+        self.pending_transition = Some(proof.clone());
+        Ok(proof)
+    }
+
+    /// Endorse removal of expired keys; return None without a public ring change.
+    /// The caller must persist state before exposing a proof or successor ring.
+    pub fn prune_with_proof(
+        &mut self,
+        now: u64,
+        valid_until: u64,
+    ) -> Result<Option<Vec<u8>>, SignError> {
+        let revision = self.next_ring_revision()?;
+        if now < self.clock {
+            return Err(SignError::ClockBeforeActivation);
+        }
+        let mut next = self.ring.clone();
+        next.prune(now);
+        if next == self.ring {
+            self.clock = now;
+            return Ok(None);
+        }
+        let payload = crate::VerifiedTransition {
+            revision,
+            previous: self.ring.clone(),
+            next: next.clone(),
+        }
+        .payload();
+        let proof = self.sign(Kind::KeyRingTransition, &payload, now, valid_until)?;
+        self.ring = next;
+        self.ring_revision = revision;
+        self.pending_transition = Some(proof.clone());
+        Ok(Some(proof))
+    }
+
+    fn next_ring_revision(&self) -> Result<u64, SignError> {
+        if self.pending_transition.is_some() {
+            return Err(SignError::TransitionPending);
+        }
+        self.ring_revision
+            .checked_add(1)
+            .ok_or(SignError::LimitExceeded)
+    }
+
+    /// Original unacknowledged proof in this state. Durable callers use PersistentSigner.
+    pub fn pending_transition(&self) -> Option<&[u8]> {
+        self.pending_transition.as_deref()
+    }
+
+    /// Public ring-only sequence, independent of ordinary signing activity.
+    pub fn ring_revision(&self) -> u64 {
+        self.ring_revision
+    }
+
+    /// Clear the matching proof after the consumer retains it. Persist the updated state.
+    pub fn acknowledge_transition(&mut self, revision: u64) -> Result<(), SignError> {
+        if revision != self.ring_revision || self.pending_transition.is_none() {
+            return Err(SignError::InvalidTransition);
+        }
+        self.pending_transition = None;
         Ok(())
     }
 
@@ -307,6 +417,12 @@ pub enum SignError {
     ValidityTooLong,
     /// A payload, ring or key history exceeds the documented resource limit.
     LimitExceeded,
+    /// Another ring change must wait for durable retention of the pending proof.
+    TransitionPending,
+    /// This issuer has enabled continuity and must endorse every ring change.
+    TransitionRequired,
+    /// No pending proof matches the supplied ring revision.
+    InvalidTransition,
     /// COSE encoding failed.
     Encoding,
 }
@@ -322,6 +438,9 @@ impl fmt::Display for SignError {
             SignError::InvalidValidity => "validity does not end after now",
             SignError::ValidityTooLong => "validity exceeds the maximum",
             SignError::Encoding => "COSE encoding failed",
+            SignError::TransitionPending => "key-ring transition awaits durable acknowledgement",
+            SignError::TransitionRequired => "key-ring continuity proof required",
+            SignError::InvalidTransition => "pending key-ring transition mismatch",
             SignError::LimitExceeded => "resource limit exceeded",
         })
     }

@@ -160,3 +160,26 @@ Open boundaries: emergency key revocation, authenticated ring distribution,
 rollback-proof database recovery, payload authorization/replay/epoch policy and
 process-memory hardening are not implemented here. `zeroize` protects owned
 buffers; it cannot guarantee removal of caller or compiler-created copies.
+
+
+## Key-ring continuity and pending publication
+
+The signer atomically persists a public ring transition proof with the successor
+state before releasing either. Rotation endorses with the old active key before
+wiping it; pruning also requires an endorsement. Only a ring change increments
+the independent public sequence. CAS revisions remain private activity metadata.
+A pending proof blocks another ring change until the consumer durably retains
+it and acknowledges that exact revision. Failure/cancellation fences the signer;
+reopen recovers the stored original proof, never regenerates it under a new key.
+
+`verify_transition` checks the dedicated kind, signature, public ring encodings,
+issuer and predecessor active signing key using existing primitives. It does not
+choose initial trust, compare the predecessor with installed state, accept a
+revision floor or install the successor. Those policy checks belong to Charter.
+Use the configured ring, never one supplied by the response under evaluation.
+The producer keeps a bounded chain of original proofs; unavailable or expired
+history must fail closed until explicit configuration refresh.
+
+State v3 reads existing v2 with ring revision zero. It adds only a u64 sequence
+and optional public COSE transition; maximum private encoded state is two MiB.
+The new TrustManifest kind is separate from settings and transition kinds.

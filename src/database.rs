@@ -22,8 +22,9 @@ const UPDATE: &str =
 
 /// Persistent store bound to one `crlt::Community` capability.
 ///
-/// Apply [`SCHEMA`] through `Db::migrate` before construction. No keys or payloads
-/// are persisted. crlt injects `community_id` and enforces indexed query plans.
+/// Apply [`SCHEMA`] through `Db::migrate` before construction. No private keys or
+/// member payloads are persisted; a pending public ring proof is recovery metadata.
+/// crlt injects `community_id` and enforces indexed query plans.
 #[derive(Clone)]
 pub struct LibsqlStore {
     community: crlt::Community,

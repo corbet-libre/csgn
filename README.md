@@ -209,3 +209,42 @@ See [LICENSE.md](LICENSE.md).
 Dependency updates follow main and are tested against one CI-resolved lockfile.
 Line and branch coverage target 100%; failures remain blocking. See
 [the coverage contract](docs/COVERAGE.md) for measurement and exclusions.
+
+## Recoverable key-ring continuity
+
+`PersistentSigner::rotate_with_proof(key, now, valid_until)` signs the exact
+previous and next ring under the old active key, then commits both next state
+and original COSE proof atomically. `prune_with_proof(now, valid_until)` does the
+same for removal, returning `None` when the ring is unchanged. A separate
+ring-only revision advances on public ring changes; ordinary signing and storage
+CAS revisions never appear in it. `pending_transition` recovers an unacknowledged
+proof after reopen, including when the original reply was lost after commit.
+
+Retain that proof durably in the consumer before `acknowledge_transition(revision)`.
+Another ring change is refused while a proof is pending. Once continuity is used,
+the legacy bare rotate/prune APIs refuse so they cannot silently skip an endorsement.
+Signing ordinary objects remains available and leaves ring/proof/revision unchanged.
+
+`verify_transition(trusted_ring, original_cose, now)` returns typed read-only
+`VerifiedTransition` metadata using the existing strict COSE/Ed25519 implementation.
+It does not install a ring. Charter owns deployment-configured initial keys,
+comparison with the installed predecessor, permanent revision floors and chain
+installation. Beacon transports original proofs, never keys that vouch for
+themselves. The consumer retains a bounded chain; missing or expired history
+requires an explicit deployment configuration refresh, never implicit trust.
+
+The dedicated kinds are `key-ring/transition` and `trust/manifest`. Transition
+CBOR is map `{1: 1, 2: issuer, 3: ring_revision, 4: previous_ring_cbor_bytes,
+5: next_ring_cbor_bytes}`. Strict decoding rejects unknown fields, noncanonical
+payloads, issuer/active-key mismatches and altered signatures. Private recovery
+state v3 adds the ring sequence and pending public proof; v2 reads migrate with
+sequence zero. No member payload, private key or new cryptographic primitive is
+introduced. This change uses the existing maintained `coset` and `ed25519-dalek`
+wrappers. Native Memory/libSQL and actual wasm vectors cover the transition;
+security acceptance still requires independent review.
+
+The same low-level transition operations are available on `Signer` only when
+its existing `volatile-signer` export is enabled. This supports deterministic
+native/wasm producer fixtures without a second CBOR encoder or executor. That
+surface is not durable: persist its complete state before publication. Production
+callers use `PersistentSigner`, which enforces commit-before-return ordering.

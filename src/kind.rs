@@ -19,16 +19,22 @@ pub enum Kind {
     CommunitiesSnapshot,
     /// A snapshot of the revocation list.
     RevocationListSnapshot,
+    /// A continuity endorsement for an issuer key-ring transition.
+    KeyRingTransition,
+    /// A public trust-feed manifest, distinct from its component snapshots.
+    TrustManifest,
 }
 
 impl Kind {
     /// Every kind, in a fixed order.
-    pub const ALL: [Kind; 5] = [
+    pub const ALL: [Kind; 7] = [
         Kind::Credential,
         Kind::SettingsSnapshot,
         Kind::SchemaSnapshot,
         Kind::CommunitiesSnapshot,
         Kind::RevocationListSnapshot,
+        Kind::KeyRingTransition,
+        Kind::TrustManifest,
     ];
 
     /// The text value written into the protected header.
@@ -39,6 +45,8 @@ impl Kind {
             Kind::SchemaSnapshot => "snapshot/schema",
             Kind::CommunitiesSnapshot => "snapshot/communities",
             Kind::RevocationListSnapshot => "snapshot/revocation-list",
+            Kind::KeyRingTransition => "key-ring/transition",
+            Kind::TrustManifest => "trust/manifest",
         }
     }
 

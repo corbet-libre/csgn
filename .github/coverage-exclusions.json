@@ -1,0 +1,582 @@
+[
+  {
+    "file": "src/cose.rs",
+    "line": 136,
+    "source": "return Err(VerifyError::Malformed(\"not a tagged COSE_Sign1\"));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 139,
+    "source": "return Err(VerifyError::Malformed(\"not a COSE_Sign1 array\"));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 142,
+    "source": "return Err(VerifyError::Malformed(",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 143,
+    "source": "\"invalid message or unprotected header\",",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 144,
+    "source": "));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 147,
+    "source": "return Err(VerifyError::Malformed(\"protected header is not bytes\"));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 150,
+    "source": "return Err(VerifyError::Malformed(\"protected header too large\"));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 163,
+    "source": "return Err(VerifyError::Malformed(\"missing or oversized payload\"));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 178,
+    "source": "return Err(VerifyError::Malformed(\"unprotected header is not empty\"));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 181,
+    "source": "return Err(VerifyError::Malformed(\"detached payload\"));",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 135,
+    "source": "let Value::Tag(18, value) = value else {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 1
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 138,
+    "source": "let Value::Array(parts) = value.as_ref() else {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 1
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 141,
+    "source": "if parts.len() != 4 || !matches!(&parts[1], Value::Map(map) if map.is_empty()) {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 141,
+    "source": "if parts.len() != 4 || !matches!(&parts[1], Value::Map(map) if map.is_empty()) {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 1,
+      "id": 2
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 141,
+    "source": "if parts.len() != 4 || !matches!(&parts[1], Value::Map(map) if map.is_empty()) {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 2,
+      "id": 5
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 146,
+    "source": "let Value::Bytes(protected) = &parts[0] else {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 1
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 149,
+    "source": "if protected.len() > 4096 {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 162,
+    "source": "if !matches!(&parts[2], Value::Bytes(payload) if payload.len() <= crate::MAX_PAYLOAD_LEN) {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 162,
+    "source": "if !matches!(&parts[2], Value::Bytes(payload) if payload.len() <= crate::MAX_PAYLOAD_LEN) {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 1,
+      "id": 3
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 177,
+    "source": "if !sign1.unprotected.is_empty() {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 180,
+    "source": "if sign1.payload.is_none() {",
+    "target": "native",
+    "reason": "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute.",
+    "evidence": "docs/COVERAGE.md#validated-cose-shape",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 212,
+    "source": "_ => return Err(VerifyError::Malformed(\"unexpected header parameter\")),",
+    "target": "native",
+    "reason": "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization.",
+    "evidence": "docs/COVERAGE.md#raw-header-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 195,
+    "source": "|| header.content_type.is_some()",
+    "target": "native",
+    "reason": "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization.",
+    "evidence": "docs/COVERAGE.md#raw-header-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 196,
+    "source": "|| !header.iv.is_empty()",
+    "target": "native",
+    "reason": "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization.",
+    "evidence": "docs/COVERAGE.md#raw-header-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 197,
+    "source": "|| !header.partial_iv.is_empty()",
+    "target": "native",
+    "reason": "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization.",
+    "evidence": "docs/COVERAGE.md#raw-header-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 198,
+    "source": "|| !header.counter_signatures.is_empty()",
+    "target": "native",
+    "reason": "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization.",
+    "evidence": "docs/COVERAGE.md#raw-header-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/ring.rs",
+    "line": 134,
+    "source": "return Err(RingError::Malformed(\"unexpected key parameter\"));",
+    "target": "native",
+    "reason": "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder.",
+    "evidence": "docs/COVERAGE.md#raw-public-key-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/ring.rs",
+    "line": 140,
+    "source": "Label::Text(_) => return Err(RingError::Malformed(\"unexpected key parameter\")),",
+    "target": "native",
+    "reason": "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder.",
+    "evidence": "docs/COVERAGE.md#raw-public-key-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/ring.rs",
+    "line": 176,
+    "source": "return Err(RingError::Malformed(\"unexpected key parameter\"));",
+    "target": "native",
+    "reason": "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder.",
+    "evidence": "docs/COVERAGE.md#raw-public-key-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/ring.rs",
+    "line": 133,
+    "source": "if !key.base_iv.is_empty() {",
+    "target": "native",
+    "reason": "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder.",
+    "evidence": "docs/COVERAGE.md#raw-public-key-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/ring.rs",
+    "line": 175,
+    "source": "if !params.is_empty() {",
+    "target": "native",
+    "reason": "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder.",
+    "evidence": "docs/COVERAGE.md#raw-public-key-allowlist",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/signer.rs",
+    "line": 186,
+    "source": "return Err(SignError::KeyMismatch);",
+    "target": "native",
+    "reason": "Only checked new/resume/rotation operations construct the private Signer fields; each binds the active ring entry to the owned secret public key and no API mutates them independently.",
+    "evidence": "docs/COVERAGE.md#private-signer-invariant",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/signer.rs",
+    "line": 185,
+    "source": "if entry.key_id != self.active.key_id() {",
+    "target": "native",
+    "reason": "Only checked new/resume/rotation operations construct the private Signer fields; each binds the active ring entry to the owned secret public key and no API mutates them independently.",
+    "evidence": "docs/COVERAGE.md#private-signer-invariant",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 0,
+      "id": 0
+    }
+  },
+  {
+    "file": "src/signer.rs",
+    "line": 206,
+    "source": ".map_err(|_| SignError::Encoding)?;",
+    "target": "native",
+    "reason": "The fixed protected-header builder uses unique permitted labels and typed values, the signature is a real fixed-length Ed25519 value and serialization targets an in-memory Vec. No encoding error is possible for this constructed COSE object.",
+    "evidence": "docs/COVERAGE.md#constructed-envelope-encoding",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  },
+  {
+    "file": "src/state.rs",
+    "line": 111,
+    "source": "if !fields.is_empty() || ids.len() > crate::MAX_USED_KEYS || ring.active().is_none() {",
+    "target": "native",
+    "reason": "The same immutable ring already passed active().ok_or_else at line102; active().is_none() cannot subsequently be true. Other predicates on this line remain covered.",
+    "evidence": "docs/COVERAGE.md#validated-active-key",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    },
+    "branch": {
+      "block": 2,
+      "id": 4
+    }
+  },
+  {
+    "file": "src/cose.rs",
+    "line": 173,
+    "source": ".map_err(|_| VerifyError::Malformed(\"cannot re-encode COSE_Sign1\"))?;",
+    "target": "native",
+    "reason": "Successful coset decoding has produced a valid Sign1 object, preserves original protected bytes and validated an empty unprotected header. Re-serializing that object into Vec cannot introduce duplicate labels or an I/O failure.",
+    "evidence": "docs/COVERAGE.md#constructed-envelope-encoding",
+    "evidence_sources": {
+      "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
+      "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
+      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
+    }
+  }
+]
