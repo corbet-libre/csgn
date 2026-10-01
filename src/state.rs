@@ -21,6 +21,8 @@ pub struct SigningState {
     pub(crate) active_signed_until: u64,
     pub(crate) clock: u64,
     pub(crate) used_ids: BTreeSet<KeyId>,
+    pub(crate) ring_revision: u64,
+    pub(crate) pending_transition: Option<Vec<u8>>,
 }
 
 impl SigningState {
@@ -33,11 +35,18 @@ impl SigningState {
     /// Never distribute this blob to verifiers; publish `key_ring()` instead.
     pub fn to_cbor(&self) -> Vec<u8> {
         Value::Map(vec![
-            (int(1), int(2)),
+            (int(1), int(3)),
             (int(2), Value::Bytes(self.ring.to_cbor())),
             (int(3), Value::Integer(self.max_validity.into())),
             (int(4), Value::Integer(self.clock.into())),
             (int(6), Value::Integer(self.active_signed_until.into())),
+            (int(7), Value::Integer(self.ring_revision.into())),
+            (
+                int(8),
+                self.pending_transition
+                    .as_ref()
+                    .map_or(Value::Null, |proof| Value::Bytes(proof.clone())),
+            ),
             (
                 int(5),
                 Value::Array(
@@ -55,16 +64,28 @@ impl SigningState {
     /// Decode and validate exact signing metadata from trusted storage.
     pub fn from_cbor(bytes: &[u8]) -> Result<Self, RingError> {
         let bad = || RingError::Malformed("invalid signing state");
-        if bytes.len() > 1024 * 1024 {
+        if bytes.len() > 2 * 1024 * 1024 {
             return Err(bad());
         }
         let mut fields = Value::from_slice(bytes)
             .ok()
             .and_then(int_map)
             .ok_or_else(bad)?;
-        if take(&mut fields, 1) != Some(int(2)) {
+        let version = take(&mut fields, 1).and_then(as_u64);
+        if !matches!(version, Some(2 | 3)) {
             return Err(RingError::UnsupportedVersion);
         }
+        let (ring_revision, pending_transition) = if version == Some(3) {
+            let revision = take(&mut fields, 7).and_then(as_u64).ok_or_else(bad)?;
+            let proof = match take(&mut fields, 8) {
+                Some(Value::Null) => None,
+                Some(Value::Bytes(proof)) => Some(proof),
+                _ => return Err(bad()),
+            };
+            (revision, proof)
+        } else {
+            (0, None)
+        };
         let ring = match take(&mut fields, 2) {
             Some(Value::Bytes(bytes)) => KeyRing::from_cbor(&bytes)?,
             _ => return Err(bad()),
@@ -109,12 +130,20 @@ impl SigningState {
                 return Err(bad());
             }
         }
+        if let Some(proof) = &pending_transition {
+            let transition = crate::transition::recovery_transition(proof).map_err(|_| bad())?;
+            if transition.revision() != ring_revision || transition.next() != &ring {
+                return Err(bad());
+            }
+        }
         Ok(Self {
             ring,
             max_validity,
             active_signed_until,
             clock,
             used_ids,
+            ring_revision,
+            pending_transition,
         })
     }
 }

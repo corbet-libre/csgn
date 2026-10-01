@@ -112,6 +112,26 @@ fn raw_empty_optional_headers_and_duplicate_labels_are_refused() {
 }
 
 #[test]
+fn alternate_outer_encodings_cannot_change_a_signed_objects_byte_identity() {
+    let mut producer = signer();
+    let encoded = producer
+        .sign(Kind::Credential, b"identity", 10, 90)
+        .unwrap();
+    assert_eq!(&encoded[..2], &[0xd2, 0x84]);
+    assert!(producer.verify(&encoded, Kind::Credential, 10).is_ok());
+    let mut long_tag = vec![0xd8, 18];
+    long_tag.extend_from_slice(&encoded[1..]);
+    let mut long_array = vec![0xd2, 0x98, 4];
+    long_array.extend_from_slice(&encoded[2..]);
+    for alternate in [long_tag, long_array] {
+        assert_eq!(
+            producer.verify(&alternate, Kind::Credential, 10),
+            Err(VerifyError::Malformed("non-canonical COSE_Sign1"))
+        );
+    }
+}
+
+#[test]
 fn noncanonical_scalar_and_small_order_signature_point_are_refused() {
     let mut signer = signer();
     let message = signer.sign(Kind::Credential, b"x", 10, 90).unwrap();
@@ -189,6 +209,130 @@ fn signing_state_rejects_missing_tombstones_and_invalid_clock_or_validity() {
     let first = fields(&mut duplicate)[0].clone();
     fields(&mut duplicate).push(first);
     assert!(SigningState::from_cbor(&duplicate.to_vec().unwrap()).is_err());
+}
+
+#[test]
+fn corrupted_recovery_metadata_cannot_reintroduce_invalid_keys_or_deadlines() {
+    let producer = signer();
+    assert_eq!(producer.max_validity(), 100);
+    let original = Value::from_slice(&producer.state().to_cbor()).unwrap();
+    for (label, value) in [
+        (1, int(1)),
+        (2, Value::Null),
+        (5, Value::Null),
+        (5, Value::Array(vec![Value::Text("key".into())])),
+        (5, Value::Array(vec![Value::Bytes(vec![0; 31])])),
+        (6, int(10)),
+        (6, int(111)),
+    ] {
+        let mut changed = original.clone();
+        fields(&mut changed)
+            .iter_mut()
+            .find(|(key, _)| *key == int(label))
+            .unwrap()
+            .1 = value;
+        assert!(SigningState::from_cbor(&changed.to_vec().unwrap()).is_err());
+    }
+    for label in [1, 2, 3, 4, 5, 6, 7, 8] {
+        let mut changed = original.clone();
+        fields(&mut changed).retain(|(key, _)| *key != int(label));
+        assert!(SigningState::from_cbor(&changed.to_vec().unwrap()).is_err());
+    }
+    let mut changed = original.clone();
+    fields(&mut changed).push((int(99), Value::Null));
+    assert!(SigningState::from_cbor(&changed.to_vec().unwrap()).is_err());
+    let mut changed = original;
+    let (_, ids) = fields(&mut changed)
+        .iter_mut()
+        .find(|(key, _)| *key == int(5))
+        .unwrap();
+    let Value::Array(ids) = ids else { panic!() };
+    ids.push(ids[0].clone());
+    assert!(SigningState::from_cbor(&changed.to_vec().unwrap()).is_err());
+    assert!(SigningState::from_cbor(&vec![0; 2 * 1024 * 1024 + 1]).is_err());
+}
+
+#[test]
+fn recovered_retirement_cannot_be_in_the_future_or_outlive_the_validity_bound() {
+    let mut producer = signer();
+    producer
+        .sign(Kind::Credential, b"retention", 10, 90)
+        .unwrap();
+    producer
+        .rotate(SecretKey::from_seed(&mut [43; 32]), 20)
+        .unwrap();
+    let original = Value::from_slice(&producer.state().to_cbor()).unwrap();
+    let mut future_retirement = original.clone();
+    fields(&mut future_retirement)
+        .iter_mut()
+        .find(|(key, _)| *key == int(4))
+        .unwrap()
+        .1 = int(19);
+    assert!(SigningState::from_cbor(&future_retirement.to_vec().unwrap()).is_err());
+    let mut overlong = original;
+    let (_, Value::Bytes(ring_bytes)) = fields(&mut overlong)
+        .iter_mut()
+        .find(|(key, _)| *key == int(2))
+        .unwrap()
+    else {
+        panic!()
+    };
+    let mut ring = Value::from_slice(ring_bytes).unwrap();
+    let (_, Value::Array(keys)) = fields(&mut ring)
+        .iter_mut()
+        .find(|(key, _)| *key == int(3))
+        .unwrap()
+    else {
+        panic!()
+    };
+    fields(&mut keys[0])
+        .iter_mut()
+        .find(|(key, _)| *key == int(-65539))
+        .unwrap()
+        .1 = int(172800);
+    *ring_bytes = ring.to_vec().unwrap();
+    assert!(SigningState::from_cbor(&overlong.to_vec().unwrap()).is_err());
+}
+
+#[test]
+fn unsigned_hostile_claim_encodings_are_refused_before_signature_verification() {
+    let mut producer = signer();
+    let encoded = producer.sign(Kind::Credential, b"private", 10, 90).unwrap();
+    for issuer in [
+        String::new(),
+        "x".repeat(csgn::MAX_ISSUER_LEN + 1),
+        "a\0b".into(),
+    ] {
+        let mut raw = Value::from_slice(&encoded).unwrap();
+        let Value::Bytes(protected) = &mut parts(&mut raw)[0] else {
+            panic!()
+        };
+        let mut header = Value::from_slice(protected).unwrap();
+        let (_, claims) = fields(&mut header)
+            .iter_mut()
+            .find(|(key, _)| *key == int(15))
+            .unwrap();
+        fields(claims)
+            .iter_mut()
+            .find(|(key, _)| *key == int(1))
+            .unwrap()
+            .1 = Value::Text(issuer);
+        *protected = header.to_vec().unwrap();
+        assert!(matches!(
+            producer.verify(&raw.to_vec().unwrap(), Kind::Credential, 10),
+            Err(VerifyError::Malformed(_))
+        ));
+    }
+    let mut raw = Value::from_slice(&encoded).unwrap();
+    parts(&mut raw)[0] = Value::Bytes(
+        Value::Map((0..17).map(|key| (int(key), Value::Null)).collect())
+            .to_vec()
+            .unwrap(),
+    );
+    assert!(matches!(
+        producer.verify(&raw.to_vec().unwrap(), Kind::Credential, 10),
+        Err(VerifyError::Malformed(_))
+    ));
 }
 
 #[test]
@@ -306,4 +450,90 @@ fn issuer_and_key_history_limits_fail_closed() {
     let Value::Array(ids) = ids else { panic!() };
     ids.push(Value::Bytes(vec![99; 32]));
     assert!(SigningState::from_cbor(&state.to_vec().unwrap()).is_err());
+}
+
+#[test]
+fn diagnostics_remain_bounded_and_do_not_contain_signed_payloads() {
+    use csgn::{RingError, StorageError};
+    let secret_payload = b"private credential payload must never enter diagnostics";
+    let mut producer = signer();
+    let encoded = producer
+        .sign(Kind::Credential, secret_payload, 10, 90)
+        .unwrap();
+    let errors = [
+        VerifyError::Malformed("invalid field"),
+        VerifyError::UnsupportedAlgorithm,
+        VerifyError::UnknownKey,
+        VerifyError::KeyExpired,
+        VerifyError::BadSignature,
+        VerifyError::WrongIssuer,
+        producer
+            .verify(&encoded, Kind::TrustManifest, 10)
+            .unwrap_err(),
+        VerifyError::OutsideKeyPeriod,
+        VerifyError::ValidityTooLong,
+        producer.verify(&encoded, Kind::Credential, 9).unwrap_err(),
+        producer.verify(&encoded, Kind::Credential, 90).unwrap_err(),
+    ];
+    let mut messages = Vec::new();
+    for error in errors {
+        assert!(std::error::Error::source(&error).is_none());
+        messages.push(error.to_string());
+    }
+    for error in [
+        RingError::Malformed("invalid field"),
+        RingError::UnsupportedVersion,
+        RingError::SecretKeyMaterial,
+        RingError::InvalidPublicKey,
+        RingError::KeyIdMismatch,
+        RingError::DuplicateKey,
+        RingError::MultipleActiveKeys,
+    ] {
+        assert!(std::error::Error::source(&error).is_none());
+        messages.push(error.to_string());
+    }
+    for error in [
+        SignError::InvalidIssuer,
+        SignError::InvalidMaxValidity,
+        SignError::KeyMismatch,
+        SignError::KeyReused,
+        SignError::ClockBeforeActivation,
+        SignError::InvalidValidity,
+        SignError::ValidityTooLong,
+        SignError::LimitExceeded,
+        SignError::TransitionPending,
+        SignError::TransitionRequired,
+        SignError::InvalidTransition,
+        SignError::Encoding,
+    ] {
+        assert!(std::error::Error::source(&error).is_none());
+        assert_eq!(
+            StorageError::Sign(error.clone()).to_string(),
+            error.to_string()
+        );
+        messages.push(error.to_string());
+    }
+    for error in [
+        StorageError::Conflict,
+        StorageError::Missing,
+        StorageError::InvalidState,
+        StorageError::Unavailable,
+        StorageError::ReloadRequired,
+    ] {
+        assert!(std::error::Error::source(&error).is_none());
+        messages.push(error.to_string());
+    }
+    let payload = std::str::from_utf8(secret_payload).unwrap();
+    for message in messages {
+        assert!(!message.is_empty());
+        assert!(message.len() <= 100);
+        assert!(!message.contains(payload));
+    }
+    let debug = format!("{producer:?}");
+    assert!(!debug.contains(payload));
+    assert!(!debug.contains("active_signed_until"));
+    for kind in Kind::ALL {
+        assert_eq!(Kind::from_wire(&kind.to_string()), Some(kind));
+        assert_eq!(kind.is_snapshot(), kind != Kind::Credential);
+    }
 }

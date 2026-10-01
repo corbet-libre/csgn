@@ -165,6 +165,56 @@ impl<S: Store> PersistentSigner<S> {
         self.update(|signer| signer.prune(now)).await
     }
 
+    /// Endorse the next ring under the old active key, then commit ring and proof
+    /// atomically before returning original COSE bytes. Provision the new key in
+    /// the platform secret store first. Uncertain writes require reopen.
+    pub async fn rotate_with_proof(
+        &mut self,
+        key: SecretKey,
+        now: u64,
+        valid_until: u64,
+    ) -> Result<Vec<u8>, StorageError> {
+        self.update(|signer| signer.rotate_with_proof(key, now, valid_until))
+            .await
+    }
+
+    /// Endorse and commit expired-key removal. A no-op returns `None` and does
+    /// not advance the public ring revision. Pending proofs block ring changes.
+    pub async fn prune_with_proof(
+        &mut self,
+        now: u64,
+        valid_until: u64,
+    ) -> Result<Option<Vec<u8>>, StorageError> {
+        self.update(|signer| signer.prune_with_proof(now, valid_until))
+            .await
+    }
+
+    /// Original durable proof awaiting consumer retention, including after reopen.
+    pub fn pending_transition(&self) -> Result<Option<&[u8]>, StorageError> {
+        Ok(self
+            .signer
+            .as_ref()
+            .ok_or(StorageError::ReloadRequired)?
+            .pending_transition())
+    }
+
+    /// Public ring-change sequence, independent of signing volume and CAS revisions.
+    pub fn ring_revision(&self) -> Result<u64, StorageError> {
+        Ok(self
+            .signer
+            .as_ref()
+            .ok_or(StorageError::ReloadRequired)?
+            .ring_revision())
+    }
+
+    /// Clear a matching pending proof only after the consumer durably retains it.
+    /// The ring revision remains unchanged. An uncertain acknowledgement requires
+    /// reopen; the returned pending state determines whether the commit happened.
+    pub async fn acknowledge_transition(&mut self, revision: u64) -> Result<(), StorageError> {
+        self.update(|signer| signer.acknowledge_transition(revision))
+            .await
+    }
+
     /// The last successfully committed public key ring, or `ReloadRequired`.
     pub fn key_ring(&self) -> Result<&KeyRing, StorageError> {
         Ok(self
@@ -229,3 +279,7 @@ impl std::fmt::Display for StorageError {
 }
 
 impl std::error::Error for StorageError {}
+
+#[cfg(test)]
+#[path = "tests/storage.rs"]
+mod tests;

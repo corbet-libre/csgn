@@ -21,6 +21,7 @@ mod signer;
 mod state;
 #[cfg(feature = "signer")]
 mod storage;
+mod transition;
 
 #[cfg(all(feature = "libsql", not(target_arch = "wasm32")))]
 pub use database::{LibsqlStore, SCHEMA};
@@ -35,6 +36,7 @@ pub use signer::{SEED_LEN, SecretKey, SignError};
 pub use state::SigningState;
 #[cfg(feature = "signer")]
 pub use storage::{MemoryStore, PersistentSigner, StorageError, Store, StoredState};
+pub use transition::{VerifiedTransition, verify_transition};
 
 /// Maximum attached payload size (one MiB).
 pub const MAX_PAYLOAD_LEN: usize = 1 << 20;

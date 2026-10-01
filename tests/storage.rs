@@ -111,6 +111,108 @@ async fn stale_writer<S: Store + Clone>(store: S) {
     );
 }
 
+async fn continuity<S: Store + Clone>(store: S) {
+    let mut signer = PersistentSigner::create(store.clone(), "continuity", key(1), 10, 1000)
+        .await
+        .unwrap();
+    let initial = signer.key_ring().unwrap().clone();
+    signer
+        .sign(Kind::Credential, b"ordinary", 11, 100)
+        .await
+        .unwrap();
+    assert_eq!(signer.key_ring().unwrap(), &initial);
+    assert_eq!(signer.ring_revision().unwrap(), 0);
+    assert_eq!(signer.pending_transition().unwrap(), None);
+    assert_eq!(
+        signer.acknowledge_transition(0).await,
+        Err(StorageError::Sign(SignError::InvalidTransition))
+    );
+    for (new_key, now, expiry, error) in [
+        (1, 12, 200, SignError::KeyReused),
+        (2, 9, 200, SignError::ClockBeforeActivation),
+        (2, 12, 12, SignError::InvalidValidity),
+        (2, 12, 1013, SignError::ValidityTooLong),
+    ] {
+        assert_eq!(
+            signer.rotate_with_proof(key(new_key), now, expiry).await,
+            Err(StorageError::Sign(error))
+        );
+        assert_eq!(signer.key_ring().unwrap(), &initial);
+        assert_eq!(signer.ring_revision().unwrap(), 0);
+    }
+    let proof = signer.rotate_with_proof(key(2), 12, 200).await.unwrap();
+    let transition = csgn::verify_transition(&initial, &proof, 12).unwrap();
+    assert_eq!(transition.revision(), 1);
+    assert_eq!(transition.previous(), &initial);
+    assert_eq!(transition.next(), signer.key_ring().unwrap());
+    assert_eq!(signer.pending_transition().unwrap(), Some(proof.as_slice()));
+    assert!(initial.verify(&proof, Kind::TrustManifest, 12).is_err());
+    let next = signer.key_ring().unwrap().clone();
+    let saved = store.load("continuity").await.unwrap().unwrap();
+    assert_eq!(
+        csgn::SigningState::from_cbor(&saved.state.to_cbor()).unwrap(),
+        saved.state
+    );
+    signer
+        .sign(Kind::TrustManifest, b"manifest", 13, 150)
+        .await
+        .unwrap();
+    assert_eq!(signer.ring_revision().unwrap(), 1);
+    assert_eq!(signer.key_ring().unwrap(), &next);
+    assert_eq!(signer.pending_transition().unwrap(), Some(proof.as_slice()));
+    assert_eq!(
+        signer.rotate_with_proof(key(3), 14, 200).await,
+        Err(StorageError::Sign(SignError::TransitionPending))
+    );
+    assert_eq!(
+        signer.prune_with_proof(14, 200).await,
+        Err(StorageError::Sign(SignError::TransitionPending))
+    );
+    assert_eq!(
+        signer.rotate(key(3), 14).await,
+        Err(StorageError::Sign(SignError::TransitionRequired))
+    );
+    assert_eq!(
+        signer.prune(14).await,
+        Err(StorageError::Sign(SignError::TransitionRequired))
+    );
+    assert_eq!(
+        signer.acknowledge_transition(2).await,
+        Err(StorageError::Sign(SignError::InvalidTransition))
+    );
+    drop(signer);
+    // The durable proof survives expiry; only the consumer decides publication
+    // freshness. A past-due proof cannot make private recovery impossible.
+    let mut signer = PersistentSigner::open(store, "continuity", key(2), 201)
+        .await
+        .unwrap();
+    assert_eq!(signer.pending_transition().unwrap(), Some(proof.as_slice()));
+    assert!(csgn::verify_transition(&initial, &proof, 201).is_err());
+    signer.acknowledge_transition(1).await.unwrap();
+    assert_eq!(signer.pending_transition().unwrap(), None);
+    assert_eq!(signer.prune_with_proof(300, 400).await.unwrap(), None);
+    assert_eq!(signer.ring_revision().unwrap(), 1);
+    assert_eq!(
+        signer.prune_with_proof(299, 400).await,
+        Err(StorageError::Sign(SignError::ClockBeforeActivation))
+    );
+    let proof = signer
+        .prune_with_proof(86_400, 86_500)
+        .await
+        .unwrap()
+        .unwrap();
+    let transition = csgn::verify_transition(&next, &proof, 86_400).unwrap();
+    assert_eq!(transition.revision(), 2);
+    assert_eq!(transition.previous(), &next);
+    assert_eq!(transition.next().keys().len(), 1);
+    assert_eq!(transition.next(), signer.key_ring().unwrap());
+}
+
+#[tokio::test]
+async fn memory_transitions_preserve_public_continuity() {
+    continuity(MemoryStore::default()).await;
+}
+
 #[tokio::test]
 async fn memory_round_trip_and_conflict() {
     let store = MemoryStore::default();
@@ -159,6 +261,110 @@ mod database {
         store.check_query_plans().await.unwrap();
         round_trip(store.clone()).await;
         stale_writer(store).await;
+    }
+
+    #[tokio::test]
+    async fn libsql_transitions_preserve_public_continuity() {
+        let (_dir, db) = local().await;
+        continuity(LibsqlStore::new(db.community("continuity").unwrap())).await;
+    }
+
+    #[tokio::test]
+    async fn rotation_proof_survives_cancellation_after_actual_database_commit() {
+        use std::sync::{
+            Arc,
+            atomic::{AtomicBool, Ordering},
+        };
+        use tokio::sync::Notify;
+        struct DelayedReply {
+            inner: LibsqlStore,
+            pause: Arc<AtomicBool>,
+            committed: Arc<Notify>,
+        }
+        impl Store for DelayedReply {
+            async fn load(&self, issuer: &str) -> Result<Option<csgn::StoredState>, StorageError> {
+                self.inner.load(issuer).await
+            }
+            async fn compare_exchange(
+                &self,
+                expected: Option<i64>,
+                state: &csgn::SigningState,
+            ) -> Result<i64, StorageError> {
+                let revision = self.inner.compare_exchange(expected, state).await?;
+                if self.pause.load(Ordering::SeqCst) {
+                    self.committed.notify_one();
+                    std::future::pending::<()>().await;
+                }
+                Ok(revision)
+            }
+        }
+        let (_dir, db) = local().await;
+        let store = LibsqlStore::new(db.community("lost-reply").unwrap());
+        let pause = Arc::new(AtomicBool::new(false));
+        let committed = Arc::new(Notify::new());
+        let transport = DelayedReply {
+            inner: store.clone(),
+            pause: pause.clone(),
+            committed: committed.clone(),
+        };
+        let mut signer = PersistentSigner::create(transport, "cmty", key(1), 10, 100)
+            .await
+            .unwrap();
+        let initial = signer.key_ring().unwrap().clone();
+        pause.store(true, Ordering::SeqCst);
+        {
+            let future = signer.rotate_with_proof(key(2), 11, 90);
+            tokio::pin!(future);
+            tokio::select! {
+                _ = committed.notified() => {},
+                value = &mut future => panic!("reply should be withheld: {value:?}"),
+            }
+        }
+        assert_eq!(
+            signer.pending_transition(),
+            Err(StorageError::ReloadRequired)
+        );
+        assert_eq!(signer.ring_revision(), Err(StorageError::ReloadRequired));
+        let mut reopened = PersistentSigner::open(store, "cmty", key(2), 12)
+            .await
+            .unwrap();
+        let proof = reopened.pending_transition().unwrap().unwrap().to_vec();
+        let transition = csgn::verify_transition(&initial, &proof, 12).unwrap();
+        assert_eq!(transition.revision(), 1);
+        assert_eq!(transition.next(), reopened.key_ring().unwrap());
+        reopened.acknowledge_transition(1).await.unwrap();
+        assert_eq!(reopened.pending_transition().unwrap(), None);
+    }
+
+    #[tokio::test]
+    async fn cancelled_rotation_before_commit_leaves_no_pending_proof() {
+        let (_dir, db) = local().await;
+        let scope = db.community("proof-cancel").unwrap();
+        let store = LibsqlStore::new(scope.clone());
+        let mut signer = PersistentSigner::create(store.clone(), "cmty", key(1), 10, 100)
+            .await
+            .unwrap();
+        let before = store.load("cmty").await.unwrap();
+        let lock = scope.tx().await.unwrap();
+        assert!(
+            tokio::time::timeout(
+                std::time::Duration::from_millis(20),
+                signer.rotate_with_proof(key(2), 11, 90)
+            )
+            .await
+            .is_err()
+        );
+        assert_eq!(
+            signer.pending_transition(),
+            Err(StorageError::ReloadRequired)
+        );
+        lock.rollback().await.unwrap();
+        assert_eq!(store.load("cmty").await.unwrap(), before);
+        let reopened = PersistentSigner::open(store, "cmty", key(1), 12)
+            .await
+            .unwrap();
+        assert_eq!(reopened.pending_transition().unwrap(), None);
+        assert_eq!(reopened.ring_revision().unwrap(), 0);
     }
 
     #[tokio::test]
@@ -253,6 +459,114 @@ mod database {
             .await
             .unwrap();
         assert_eq!(store.load("cmty").await, Err(StorageError::InvalidState));
+    }
+
+    #[tokio::test]
+    async fn imported_rows_require_blob_state_positive_revision_and_matching_issuer() {
+        let dir = tempfile::tempdir().unwrap();
+        let url = format!("file://{}", dir.path().join("import.db").display());
+        let db = Db::open(Config::new(url, "")).await.unwrap();
+        // A real imported table can predate the positive-revision constraint.
+        let schema = SCHEMA.replace(" CHECK (revision > 0)", "");
+        db.migrate(&[Migration::new(1, "imported signing", &schema)])
+            .await
+            .unwrap();
+        let scope = db.community("imported").unwrap();
+        let store = LibsqlStore::new(scope.clone());
+        PersistentSigner::create(store.clone(), "cmty", key(1), 10, 100)
+            .await
+            .unwrap();
+        PersistentSigner::create(store.clone(), "other", key(2), 10, 100)
+            .await
+            .unwrap();
+        let original = store.load("cmty").await.unwrap().unwrap().state.to_cbor();
+        let foreign = store.load("other").await.unwrap().unwrap().state.to_cbor();
+        for bytes in [
+            crlt::Value::Text("private".into()),
+            crlt::Value::Blob(foreign),
+        ] {
+            scope
+                .execute(
+                    "UPDATE csgn_state SET state = ?1 WHERE issuer = ?2",
+                    crlt::params![bytes, "cmty"],
+                )
+                .await
+                .unwrap();
+            assert_eq!(store.load("cmty").await, Err(StorageError::InvalidState));
+        }
+        scope
+            .execute(
+                "UPDATE csgn_state SET state = ?1, revision = ?2 WHERE issuer = ?3",
+                crlt::params![original, 0, "cmty"],
+            )
+            .await
+            .unwrap();
+        assert_eq!(store.load("cmty").await, Err(StorageError::InvalidState));
+    }
+
+    #[tokio::test]
+    async fn imported_triggers_are_refused_by_the_storage_boundary() {
+        let dir = tempfile::tempdir().unwrap();
+        let url = format!("file://{}", dir.path().join("trigger.db").display());
+        let db = Db::open(Config::new(url, "")).await.unwrap();
+        let schema = format!(
+            "{SCHEMA}\nCREATE TRIGGER refuse_signer_update BEFORE UPDATE ON csgn_state \
+             BEGIN SELECT RAISE(IGNORE); END;"
+        );
+        // The actual storage facade rejects triggers before signing is possible.
+        // Do not bypass its schema boundary to manufacture an unreachable count.
+        assert!(
+            db.migrate(&[Migration::new(1, "incompatible imported trigger", &schema)])
+                .await
+                .is_err()
+        );
+    }
+
+    #[tokio::test]
+    async fn imported_duplicate_issuer_rows_roll_back_the_entire_update() {
+        let dir = tempfile::tempdir().unwrap();
+        let url = format!("file://{}", dir.path().join("duplicate.db").display());
+        let db = Db::open(Config::new(url, "")).await.unwrap();
+        let schema = SCHEMA.replace(
+            "PRIMARY KEY (community_id, issuer)",
+            "slot INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (community_id, issuer, slot)",
+        );
+        db.migrate(&[Migration::new(1, "incompatible imported key", &schema)])
+            .await
+            .unwrap();
+        let scope = db.community("imported").unwrap();
+        let store = LibsqlStore::new(scope.clone());
+        let mut signer = PersistentSigner::create(store.clone(), "cmty", key(1), 10, 100)
+            .await
+            .unwrap();
+        let saved = store.load("cmty").await.unwrap().unwrap();
+        scope
+            .execute(
+                "INSERT INTO csgn_state (issuer, revision, state, slot) VALUES (?1, ?2, ?3, ?4)",
+                crlt::params!["cmty", saved.revision, saved.state.to_cbor(), 1],
+            )
+            .await
+            .unwrap();
+        assert_eq!(
+            signer.sign(Kind::Credential, b"private", 11, 90).await,
+            Err(StorageError::Conflict)
+        );
+        assert_eq!(signer.key_ring(), Err(StorageError::ReloadRequired));
+        let rows = scope
+            .query(
+                "SELECT revision, state FROM csgn_state WHERE issuer = ?1",
+                ["cmty"],
+            )
+            .await
+            .unwrap();
+        assert_eq!(rows.len(), 2);
+        for row in rows {
+            assert_eq!(row.get_i64(0).unwrap(), saved.revision);
+            assert_eq!(
+                row.get_value(1).unwrap(),
+                &crlt::Value::Blob(saved.state.to_cbor())
+            );
+        }
     }
 
     #[tokio::test]
