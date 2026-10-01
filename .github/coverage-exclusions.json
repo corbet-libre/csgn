@@ -9,7 +9,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -23,7 +23,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -37,7 +37,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -51,7 +51,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -65,7 +65,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -79,7 +79,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -93,7 +93,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -107,7 +107,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -121,7 +121,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -135,7 +135,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -149,7 +149,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -167,7 +167,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -185,7 +185,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -203,7 +203,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -221,7 +221,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -239,7 +239,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -257,7 +257,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -275,7 +275,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -293,7 +293,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -311,7 +311,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -329,7 +329,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -347,7 +347,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -361,7 +361,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -379,7 +379,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -397,7 +397,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -415,7 +415,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -433,7 +433,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -447,7 +447,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -461,7 +461,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -475,7 +475,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -493,7 +493,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -511,7 +511,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -525,7 +525,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -543,7 +543,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   },
@@ -557,7 +557,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     },
     "branch": {
@@ -575,7 +575,7 @@
     "evidence_sources": {
       "src/cose.rs": "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1",
       "src/ring.rs": "204ba6658a684cad8940e39d537081d1c1c9fb829e3f3a7792c88e6a6dd16130",
-      "src/signer.rs": "1081894e55eac2eab255272b41525dcf7bf0b3b9760185c4487c0f8e738e2838",
+      "src/signer.rs": "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811",
       "src/state.rs": "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
     }
   }
