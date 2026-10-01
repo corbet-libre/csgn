@@ -28,7 +28,7 @@ sha2 = { version = "0.11", default-features = false }
 zeroize = { version = "1.8", default-features = false }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-crlt = { git = "https://github.com/corbet-foss/crlt", rev = "80dc046d6ab53b3ea530c45bf3d7038c8b2c61b2", optional = true }
+crlt = { git = "https://github.com/corbet-foss/crlt", branch = "main", optional = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 getrandom = { version = "0.4", features = ["sys_rng"] }
