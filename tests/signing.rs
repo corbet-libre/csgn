@@ -136,7 +136,7 @@ fn generated_keys_round_trip_and_differ() {
     let first = SecretKey::generate(&mut rng);
     let second = SecretKey::generate(&mut rng);
     assert_ne!(first.key_id(), second.key_id());
-    let mut signer = Signer::new("cglb", first, NOW, MAX_VALIDITY).unwrap();
+    let mut signer = Signer::new("cgbl", first, NOW, MAX_VALIDITY).unwrap();
     let message = signer.sign(Kind::Credential, b"x", NOW, NOW + 1).unwrap();
     assert!(
         published(&signer)
@@ -221,7 +221,7 @@ fn tampered_protected_header_is_rejected() {
         *claim(&mut m.protected.header, 6) = Value::Integer((NOW - 1).into());
     });
     let issuer = edit(&message, true, |m| {
-        *claim(&mut m.protected.header, 1) = Value::Text("cglb".into());
+        *claim(&mut m.protected.header, 1) = Value::Text("cgbl".into());
     });
     let kind = edit(&message, true, |m| {
         *header_value(&mut m.protected.header, KIND_LABEL) = Value::Text("credential".into());
@@ -297,7 +297,7 @@ fn key_of_another_signer_is_unknown() {
 fn levels_do_not_accept_each_other() {
     // Separate keys per level: the global ring does not know community keys.
     let mut community = signer_with("cmty", 1, NOW);
-    let global = signer_with("cglb", 2, NOW);
+    let global = signer_with("cgbl", 2, NOW);
     let message = community
         .sign(Kind::RevocationListSnapshot, b"x", NOW, NOW + DAY)
         .unwrap();
@@ -307,7 +307,7 @@ fn levels_do_not_accept_each_other() {
     );
 
     // Even a misconfiguration that loads the same key at both levels is caught by the issuer.
-    let same_key_global = signer_with("cglb", 1, NOW);
+    let same_key_global = signer_with("cgbl", 1, NOW);
     assert_eq!(
         published(&same_key_global).verify(&message, Kind::RevocationListSnapshot, NOW),
         Err(VerifyError::WrongIssuer)

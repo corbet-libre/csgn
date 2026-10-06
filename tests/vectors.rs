@@ -32,13 +32,13 @@ const KID_2: &str = "dd2fb4e18b5e1ce30c4633aaa5f681da79c3b32998cc5aa21b1149c3723
 const PAYLOAD_2: &str = "a1636e657701";
 const COSE_2: &str = concat!(
     "d2845861a5013202820f3a00010000045820dd2fb4e18b5e1ce30c4633aaa5f681da79c3b32998cc",
-    "5aa21b1149c37231a6ac0fa3016463676c62041a6ab14990061a6ab13b803a000100007818736e61",
-    "7073686f742f7265766f636174696f6e2d6c697374a046a1636e6577015840af7b3ad3984eff5cd3",
-    "303069907ac248586811ea75eeabc961736b848e3548ae3d011ab14771051f5ba9d1252e3c21e2a9",
-    "bd6ab418dd24ff6759ca804b35a300",
+    "5aa21b1149c37231a6ac0fa301646367626c041a6ab14990061a6ab13b803a000100007818736e61",
+    "7073686f742f7265766f636174696f6e2d6c697374a046a1636e6577015840571961be9ae4f65724",
+    "4c9b3e27b8e3dc87b561820301a1301b8cc20647974a4796c47c2f7d72e86fa295fd2811e88581ab",
+    "3b6c4f4d2f9c08892798322d64120e",
 );
 const RING_2: &str = concat!(
-    "a40102026463676c620381a70101025820dd2fb4e18b5e1ce30c4633aaa5f681da79c3b32998cc5a",
+    "a4010202646367626c0381a70101025820dd2fb4e18b5e1ce30c4633aaa5f681da79c3b32998cc5a",
     "a21b1149c37231a6ac033204810220062158208a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d",
     "94121bf3748801b40f6f5c3a000100001a6ab13b80041a00278d00",
 );
@@ -89,7 +89,7 @@ fn vector_1_verifies_with_its_published_ring() {
 #[test]
 fn vector_2_verifies_with_its_published_ring() {
     let ring = KeyRing::from_cbor(&hex(RING_2)).unwrap();
-    assert_eq!(ring.issuer(), "cglb");
+    assert_eq!(ring.issuer(), "cgbl");
     assert_eq!(ring.to_cbor(), hex(RING_2));
     let verified = ring
         .verify(&hex(COSE_2), Kind::RevocationListSnapshot, NOW + 3_599)
@@ -271,7 +271,7 @@ mod signing {
     #[test]
     fn signing_reproduces_vector_2() {
         let key = SecretKey::from_seed(&mut [1u8; 32]);
-        let mut signer = Signer::new("cglb", key, NOW, 30 * 86_400).unwrap();
+        let mut signer = Signer::new("cgbl", key, NOW, 30 * 86_400).unwrap();
         let message = signer
             .sign(
                 Kind::RevocationListSnapshot,

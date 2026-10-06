@@ -24,7 +24,7 @@ The [implemented contract](docs/CONTRACT.md) specifies the wire and storage form
   returning a credential or exposing a changed ring.
 
 One issuer and independent keys per global service and per community; use unique,
-fully scoped issuer names, e.g. `cmty:example` and `cglb:platform`. Times are unsigned
+fully scoped issuer names, e.g. `cmty:example` and `cgbl:platform`. Times are unsigned
 Unix seconds supplied by the caller. The maximum lifetime is explicit policy
 (e.g. 30 days); every kind, including snapshots, has an expiry. Credentials and
 snapshots are opaque payloads: their owners validate member fields, revisions,
@@ -164,7 +164,7 @@ Enable `libsql`, append `csgn::SCHEMA` to the service-owned ordered
 The service owns numbering and migration execution; this library does not assume
 it is the only schema user. Apply the complete migration history on reopening.
 
-Use one database per community; `cglb` has a separate database and scope. The
+Use one database per community; `cgbl` has a separate database and scope. The
 single `csgn_state` table has primary key `(community_id, issuer)` and stores a
 revision plus a private recovery metadata blob. `crlt` injects the community key into every
 statement and enforces indexed plans. `check_query_plans` checks every adapter

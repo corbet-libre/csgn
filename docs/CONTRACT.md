@@ -117,7 +117,7 @@ CREATE TABLE csgn_state (
 ```
 
 The service appends `SCHEMA` to its own numbered migration history. It owns
-one-database-per-community routing; cglb uses its separate database. All reads and
+one-database-per-community routing; cgbl uses its separate database. All reads and
 updates use the composite primary key, inserts check it, and adapter query plans
 are tested with `EXPLAIN QUERY PLAN` and enforced by crlt.
 
