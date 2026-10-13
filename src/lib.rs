@@ -12,6 +12,7 @@
 mod cose;
 #[cfg(all(feature = "libsql", not(target_arch = "wasm32")))]
 mod database;
+mod genesis;
 mod key_id;
 mod kind;
 mod ring;
@@ -25,6 +26,7 @@ mod transition;
 
 #[cfg(all(feature = "libsql", not(target_arch = "wasm32")))]
 pub use database::{LibsqlStore, SCHEMA};
+pub use genesis::{FINGERPRINT_LEN, Genesis, fingerprint, verify_genesis};
 pub use key_id::{KEY_ID_LEN, KeyId};
 pub use kind::Kind;
 pub use ring::{KeyEntry, KeyRing, RingError, Verified, VerifyError};
@@ -36,7 +38,7 @@ pub use signer::{SEED_LEN, SecretKey, SignError};
 pub use state::SigningState;
 #[cfg(feature = "signer")]
 pub use storage::{MemoryStore, PersistentSigner, StorageError, Store, StoredState};
-pub use transition::{VerifiedTransition, verify_transition};
+pub use transition::{VerifiedTransition, verify_transition, verify_transition_at_issue};
 
 /// Maximum attached payload size (one MiB).
 pub const MAX_PAYLOAD_LEN: usize = 1 << 20;

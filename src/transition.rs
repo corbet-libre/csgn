@@ -114,6 +114,18 @@ pub fn verify_transition(
     Ok(transition)
 }
 
+/// Verifies a transition proof at its own issue time against the ring it names as
+/// predecessor's trusted copy. For walking a chain from the genesis ring long
+/// after the intermediate proofs expired: the proof is still a signature by the
+/// previous ring's active key, only its freshness is not asked.
+pub fn verify_transition_at_issue(
+    trusted: &KeyRing,
+    proof: &[u8],
+) -> Result<VerifiedTransition, VerifyError> {
+    let issued = crate::cose::parse(proof)?.issued_at;
+    verify_transition(trusted, proof, issued)
+}
+
 #[cfg(feature = "signer")]
 pub(crate) fn recovery_transition(proof: &[u8]) -> Result<VerifiedTransition, VerifyError> {
     // Recovery checks historical proof consistency, not current publication

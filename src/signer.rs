@@ -210,6 +210,29 @@ impl Signer {
         Ok(message)
     }
 
+    /// The genesis document of this signer's community: the founding key signs its
+    /// own creation. Only valid for a fresh ring (one key, revision 0) and before
+    /// anything else was signed, so the document always matches the first ring.
+    pub fn genesis(&mut self) -> Result<Vec<u8>, SignError> {
+        let entry = self.ring.active().ok_or(SignError::KeyMismatch)?;
+        if self.ring_revision != 0 || self.ring.keys().len() != 1 {
+            return Err(SignError::TransitionRequired);
+        }
+        let created_at = entry.activated_at();
+        let payload = crate::genesis::payload(
+            self.ring.issuer(),
+            created_at,
+            self.max_validity,
+            &entry.public_key(),
+        );
+        self.sign(
+            Kind::Genesis,
+            &payload,
+            created_at,
+            created_at.saturating_add(1),
+        )
+    }
+
     /// Makes `new_key` the active key from `now` and retires the current one.
     ///
     /// The retired public key stays until the latest expiry rounded up to a UTC day;

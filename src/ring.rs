@@ -37,7 +37,6 @@ pub struct KeyEntry {
 }
 
 impl KeyEntry {
-    #[cfg(feature = "signer")]
     pub(crate) fn new_active(key_id: KeyId, public_key: VerifyingKey, activated_at: u64) -> Self {
         KeyEntry {
             key_id,
@@ -228,7 +227,6 @@ pub struct KeyRing {
 }
 
 impl KeyRing {
-    #[cfg(feature = "signer")]
     pub(crate) fn new(issuer: String, first: KeyEntry, max_validity: u64) -> Self {
         KeyRing {
             issuer,

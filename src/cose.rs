@@ -120,6 +120,10 @@ impl Parsed {
             })
     }
 
+    pub(crate) fn payload(&self) -> &[u8] {
+        self.sign1.payload.as_deref().unwrap_or_default()
+    }
+
     pub(crate) fn into_payload(self) -> Vec<u8> {
         self.sign1.payload.unwrap_or_default()
     }

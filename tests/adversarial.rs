@@ -534,6 +534,9 @@ fn diagnostics_remain_bounded_and_do_not_contain_signed_payloads() {
     assert!(!debug.contains("active_signed_until"));
     for kind in Kind::ALL {
         assert_eq!(Kind::from_wire(&kind.to_string()), Some(kind));
-        assert_eq!(kind.is_snapshot(), kind != Kind::Credential);
+        assert_eq!(
+            kind.is_snapshot(),
+            !matches!(kind, Kind::Credential | Kind::Genesis)
+        );
     }
 }

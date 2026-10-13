@@ -154,6 +154,11 @@ impl<S: Store> PersistentSigner<S> {
             .await
     }
 
+    /// The community's genesis document, committed like any signature.
+    pub async fn genesis(&mut self) -> Result<Vec<u8>, StorageError> {
+        self.update(|signer| signer.genesis()).await
+    }
+
     /// Rotate and commit the new ring before making it visible.
     /// Provision the new key in the platform secret store before calling this.
     pub async fn rotate(&mut self, key: SecretKey, now: u64) -> Result<(), StorageError> {

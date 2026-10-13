@@ -23,11 +23,13 @@ pub enum Kind {
     KeyRingTransition,
     /// A public trust-feed manifest, distinct from its component snapshots.
     TrustManifest,
+    /// The self-signed root document of a community's key chain.
+    Genesis,
 }
 
 impl Kind {
     /// Every kind, in a fixed order.
-    pub const ALL: [Kind; 7] = [
+    pub const ALL: [Kind; 8] = [
         Kind::Credential,
         Kind::SettingsSnapshot,
         Kind::SchemaSnapshot,
@@ -35,6 +37,7 @@ impl Kind {
         Kind::RevocationListSnapshot,
         Kind::KeyRingTransition,
         Kind::TrustManifest,
+        Kind::Genesis,
     ];
 
     /// The text value written into the protected header.
@@ -47,6 +50,7 @@ impl Kind {
             Kind::RevocationListSnapshot => "snapshot/revocation-list",
             Kind::KeyRingTransition => "key-ring/transition",
             Kind::TrustManifest => "trust/manifest",
+            Kind::Genesis => "genesis",
         }
     }
 
@@ -57,7 +61,7 @@ impl Kind {
 
     /// Whether this kind is one of the snapshots.
     pub const fn is_snapshot(self) -> bool {
-        !matches!(self, Kind::Credential)
+        !matches!(self, Kind::Credential | Kind::Genesis)
     }
 }
 
