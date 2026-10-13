@@ -19,6 +19,9 @@ fn genesis_round_trips_and_names_the_first_ring() {
     assert_eq!(genesis.founding_key(), key(1).public_key());
     assert_eq!(genesis.fingerprint(), fingerprint(&document));
     assert_eq!(&genesis.ring(), signer.key_ring());
+    assert_eq!(genesis.ring().digest(), signer.key_ring().digest());
+    let other = Signer::new("community", key(2), 10, 1000).unwrap();
+    assert_ne!(other.key_ring().digest(), signer.key_ring().digest());
 }
 
 #[test]

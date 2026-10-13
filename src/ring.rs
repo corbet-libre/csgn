@@ -371,6 +371,17 @@ impl KeyRing {
             .expect("CBOR encoding into memory cannot fail")
     }
 
+    /// Domain-separated SHA-256 of the canonical encoding: a stable name for this
+    /// exact ring, for pinning a verified chain head.
+    pub fn digest(&self) -> [u8; 32] {
+        use sha2::{Digest, Sha256};
+        Sha256::new()
+            .chain_update(b"csgn.ring.v1\0")
+            .chain_update(self.to_cbor())
+            .finalize()
+            .into()
+    }
+
     /// Decodes and validates a ring produced by [`KeyRing::to_cbor`].
     ///
     /// Refuses unknown versions and fields, secret key material, keys whose ID is not their
