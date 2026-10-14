@@ -9,6 +9,7 @@ touch "$GITHUB_PATH"
 python3 .github/check-first-party.py
 rustc --version
 wasmtime --version
+bash .ci/update-our-crates.sh
 cargo fmt --all --check
 cargo clippy --locked --all-targets -- -D warnings
 cargo clippy --locked --all-targets --no-default-features -- -D warnings
