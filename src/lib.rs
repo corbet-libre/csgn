@@ -26,7 +26,9 @@ mod transition;
 
 #[cfg(all(feature = "libsql", not(target_arch = "wasm32")))]
 pub use database::{LibsqlStore, SCHEMA};
-pub use genesis::{FINGERPRINT_LEN, Genesis, fingerprint, verify_genesis};
+pub use genesis::{
+    FINGERPRINT_LEN, Genesis, UNFOUNDED_FINGERPRINT_TAG, community_fingerprint, verify_genesis,
+};
 pub use key_id::{KEY_ID_LEN, KeyId};
 pub use kind::Kind;
 pub use ring::{KeyEntry, KeyRing, RingError, Verified, VerifyError};

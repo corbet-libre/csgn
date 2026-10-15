@@ -17,7 +17,27 @@ use crate::{KeyId, KeyRing, Kind, VerifyError};
 
 /// Length of a fingerprint in bytes (SHA-256).
 pub const FINGERPRINT_LEN: usize = 32;
-const DOMAIN: &[u8] = b"csgn.genesis.v1\0";
+/// Domain tag of the fingerprint of a community without a founding document.
+pub const UNFOUNDED_FINGERPRINT_TAG: &[u8] = b"cvld.stamp.unfounded-community.v1\0";
+
+/// THE community fingerprint; every component computes it only through this function.
+///
+/// A founded community: SHA-256 of its founding public key (the community is
+/// identified by its founding key). A community without a founding document:
+/// SHA-256 of [`UNFOUNDED_FINGERPRINT_TAG`] and the community id.
+pub fn community_fingerprint(
+    community: impl AsRef<[u8]>,
+    founding_key: Option<&[u8; 32]>,
+) -> [u8; FINGERPRINT_LEN] {
+    match founding_key {
+        Some(key) => Sha256::digest(key).into(),
+        None => Sha256::new()
+            .chain_update(UNFOUNDED_FINGERPRINT_TAG)
+            .chain_update(community.as_ref())
+            .finalize()
+            .into(),
+    }
+}
 
 /// A signature-verified genesis document.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -42,7 +62,7 @@ impl Genesis {
     pub fn founding_key(&self) -> [u8; 32] {
         self.founding_key
     }
-    /// SHA-256 of the exact document bytes, domain separated.
+    /// The community fingerprint: [`community_fingerprint`] of the founding key.
     pub fn fingerprint(&self) -> [u8; FINGERPRINT_LEN] {
         self.fingerprint
     }
@@ -57,15 +77,6 @@ impl Genesis {
         );
         KeyRing::new(self.community.clone(), entry, self.max_validity)
     }
-}
-
-/// The fingerprint of a genesis document, without verifying it.
-pub fn fingerprint(document: &[u8]) -> [u8; FINGERPRINT_LEN] {
-    Sha256::new()
-        .chain_update(DOMAIN)
-        .chain_update(document)
-        .finalize()
-        .into()
 }
 
 pub(crate) fn payload(
@@ -121,7 +132,7 @@ pub fn verify_genesis(document: &[u8]) -> Result<Genesis, VerifyError> {
     };
     let founding_key: [u8; 32] = key.as_slice().try_into().map_err(|_| bad.clone())?;
     // One byte string per document: a non-canonical payload would give the same
-    // community two fingerprints.
+    // community two documents.
     if !fields.is_empty() || payload(&community, created_at, max_validity, &founding_key) != raw {
         return Err(bad);
     }
@@ -136,11 +147,12 @@ pub fn verify_genesis(document: &[u8]) -> Result<Genesis, VerifyError> {
     if parsed.issued_at != created_at || parsed.valid_until != created_at.saturating_add(1) {
         return Err(VerifyError::Malformed("genesis times differ"));
     }
+    let fingerprint = community_fingerprint(community.as_bytes(), Some(&founding_key));
     Ok(Genesis {
         community,
         created_at,
         max_validity,
         founding_key,
-        fingerprint: fingerprint(document),
+        fingerprint,
     })
 }
