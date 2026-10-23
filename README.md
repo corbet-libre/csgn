@@ -178,7 +178,7 @@ all features, verification only), wasm32 library checks, and execution of the sa
 independent vectors and security regressions on `wasm32-wasip1` with
 [Wasmtime](https://docs.wasmtime.dev/cli.html). `wasm32-unknown-unknown` remains
 a compile check; WASI execution does not claim browser integration coverage.
-Cargo is never run on the workstation. CI retains its resolved lockfile as an artifact; committed locks
+CI retains its resolved lockfile as an artifact; committed locks
 keep the same dependency identity on subsequent runs.
 
 Independent fixtures can be regenerated with `scripts/generate-vectors.py` using
