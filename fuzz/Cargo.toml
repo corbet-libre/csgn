@@ -1,0 +1,24 @@
+[package]
+name = "csgn-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+license = "LGPL-3.0-only WITH LGPL-3.0-linking-exception"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "=0.4.13"
+# The in-memory signer makes genuine credentials for the structured stage of the target.
+csgn = { path = "..", features = ["volatile-signer"] }
+
+[[bin]]
+name = "cose_verify"
+path = "fuzz_targets/cose_verify.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]
+members = ["."]
