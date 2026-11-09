@@ -79,11 +79,11 @@ jobs:
     - name: Execute verifier vectors on wasm32
       env:
         CARGO_TARGET_WASM32_WASIP1_RUNNER: wasmtime
-      run: cargo test --locked --target wasm32-wasip1 --no-default-features --test vectors --test ring -- --test-threads=1
+      run: cargo test --locked --target wasm32-wasip1 --no-default-features --test it -- --test-threads=1
     - name: Execute signing vectors and security regressions on wasm32
       env:
         CARGO_TARGET_WASM32_WASIP1_RUNNER: wasmtime
-      run: cargo test --locked --target wasm32-wasip1 --features volatile-signer --test vectors --test ring --test adversarial --test transitions -- --test-threads=1
+      run: cargo test --locked --target wasm32-wasip1 --features volatile-signer --test it -- --test-threads=1
     needs:
     - resolve
   dependency-policy:

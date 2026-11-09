@@ -20,8 +20,8 @@ cargo test --locked --no-default-features
 cargo check --locked --target wasm32-unknown-unknown
 cargo check --locked --target wasm32-unknown-unknown --no-default-features
 cargo check --locked --target wasm32-unknown-unknown --all-features
-CARGO_TARGET_WASM32_WASIP1_RUNNER=wasmtime cargo test --locked --target wasm32-wasip1 --no-default-features --test vectors --test ring -- --test-threads=1
-CARGO_TARGET_WASM32_WASIP1_RUNNER=wasmtime cargo test --locked --target wasm32-wasip1 --features volatile-signer --test vectors --test ring --test adversarial --test transitions -- --test-threads=1
+CARGO_TARGET_WASM32_WASIP1_RUNNER=wasmtime cargo test --locked --target wasm32-wasip1 --no-default-features --test it -- --test-threads=1
+CARGO_TARGET_WASM32_WASIP1_RUNNER=wasmtime cargo test --locked --target wasm32-wasip1 --features volatile-signer --test it -- --test-threads=1
 
 rustup run nightly rustc --version
 NIGHTLY_RUSTC="$(rustup which --toolchain nightly rustc)"
