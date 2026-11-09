@@ -5,7 +5,7 @@ edition = "2024"
 rust-version = "1.88"
 description = "Signing: Ed25519 COSE credentials and snapshots with key rotation; keys never leave"
 license = "LGPL-3.0-only WITH LGPL-3.0-linking-exception"
-repository = "https://git.corbet.ch/corbet-foss/csgn"
+repository = "https://git.corbet.ch/corbet-libre/csgn.git"
 readme = "README.md"
 publish = false
 include = ["Cargo.toml", "src/**", "README.md", "LICENSE", "LICENSE.md", "LICENSES/LGPL-3.0-only.txt", "LICENSES/LGPL-3.0-linking-exception.txt", "LICENSES/GPL-3.0-only.txt"]
@@ -28,7 +28,7 @@ sha2 = { version = "0.11", default-features = false }
 zeroize = { version = "1.8", default-features = false }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-crlt = { git = "https://git.corbet.ch/corbet-foss/crlt", branch = "main", optional = true }
+crlt = { git = "https://git.corbet.ch/corbet-libre/crlt.git", branch = "main", optional = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 getrandom = { version = "0.4", features = ["sys_rng"] }
