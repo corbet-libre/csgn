@@ -52,147 +52,147 @@ targets = ["stable:wasm32-unknown-unknown", "stable:wasm32-wasip1"]
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 136
+line = 140
 source = 'return Err(VerifyError::Malformed("not a tagged COSE_Sign1"));'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 139
+line = 143
 source = 'return Err(VerifyError::Malformed("not a COSE_Sign1 array"));'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 142
+line = 146
 source = "return Err(VerifyError::Malformed("
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 143
+line = 147
 source = '"invalid message or unprotected header",'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 144
+line = 148
 source = "));"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 147
+line = 151
 source = 'return Err(VerifyError::Malformed("protected header is not bytes"));'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 150
+line = 154
 source = 'return Err(VerifyError::Malformed("protected header too large"));'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 163
+line = 167
 source = 'return Err(VerifyError::Malformed("missing or oversized payload"));'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 178
+line = 182
 source = 'return Err(VerifyError::Malformed("unprotected header is not empty"));'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 181
+line = 185
 source = 'return Err(VerifyError::Malformed("detached payload"));'
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 135
+line = 139
 source = "let Value::Tag(18, value) = value else {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -203,14 +203,14 @@ block = 0
 id = 1
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 138
+line = 142
 source = "let Value::Array(parts) = value.as_ref() else {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -221,14 +221,14 @@ block = 0
 id = 1
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 141
+line = 145
 source = "if parts.len() != 4 || !matches!(&parts[1], Value::Map(map) if map.is_empty()) {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -239,14 +239,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 141
+line = 145
 source = "if parts.len() != 4 || !matches!(&parts[1], Value::Map(map) if map.is_empty()) {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -257,14 +257,14 @@ block = 1
 id = 2
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 141
+line = 145
 source = "if parts.len() != 4 || !matches!(&parts[1], Value::Map(map) if map.is_empty()) {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -275,14 +275,14 @@ block = 2
 id = 5
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 146
+line = 150
 source = "let Value::Bytes(protected) = &parts[0] else {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -293,14 +293,14 @@ block = 0
 id = 1
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 149
+line = 153
 source = "if protected.len() > 4096 {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -311,14 +311,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 162
+line = 166
 source = "if !matches!(&parts[2], Value::Bytes(payload) if payload.len() <= crate::MAX_PAYLOAD_LEN) {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -329,14 +329,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 162
+line = 166
 source = "if !matches!(&parts[2], Value::Bytes(payload) if payload.len() <= crate::MAX_PAYLOAD_LEN) {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -347,14 +347,14 @@ block = 1
 id = 3
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 177
+line = 181
 source = "if !sign1.unprotected.is_empty() {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -365,14 +365,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 180
+line = 184
 source = "if sign1.payload.is_none() {"
 reason = "The allocation-free check_shape gate already requires tag18, exactly four parts, bounded protected/payload byte strings, an empty unprotected map and a 64-byte signature before Value decoding; repeated shape refusal cannot execute."
 evidence = "docs/COVERAGE.md#validated-cose-shape"
@@ -383,28 +383,28 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 212
+line = 216
 source = '_ => return Err(VerifyError::Malformed("unexpected header parameter")),'
 reason = "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization."
 evidence = "docs/COVERAGE.md#raw-header-allowlist"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 195
+line = 199
 source = "|| header.content_type.is_some()"
 reason = "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization."
 evidence = "docs/COVERAGE.md#raw-header-allowlist"
@@ -415,14 +415,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 196
+line = 200
 source = "|| !header.iv.is_empty()"
 reason = "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization."
 evidence = "docs/COVERAGE.md#raw-header-allowlist"
@@ -433,14 +433,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 197
+line = 201
 source = "|| !header.partial_iv.is_empty()"
 reason = "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization."
 evidence = "docs/COVERAGE.md#raw-header-allowlist"
@@ -451,14 +451,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 198
+line = 202
 source = "|| !header.counter_signatures.is_empty()"
 reason = "The raw integer-header allowlist permits only algorithm, critical labels, key ID, CWT claims and kind; optional content/IV/countersignature fields and other rest labels have already been refused before coset normalization."
 evidence = "docs/COVERAGE.md#raw-header-allowlist"
@@ -469,9 +469,9 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
@@ -483,23 +483,23 @@ evidence = "docs/COVERAGE.md#raw-public-key-allowlist"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/ring.rs"
-line = 140
+line = 139
 source = 'Label::Text(_) => return Err(RingError::Malformed("unexpected key parameter")),'
 reason = "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder."
 evidence = "docs/COVERAGE.md#raw-public-key-allowlist"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
@@ -511,14 +511,14 @@ evidence = "docs/COVERAGE.md#raw-public-key-allowlist"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/ring.rs"
-line = 133
+line = 132
 source = "if !key.base_iv.is_empty() {"
 reason = "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder."
 evidence = "docs/COVERAGE.md#raw-public-key-allowlist"
@@ -529,14 +529,14 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/ring.rs"
-line = 175
+line = 174
 source = "if !params.is_empty() {"
 reason = "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder."
 evidence = "docs/COVERAGE.md#raw-public-key-allowlist"
@@ -547,9 +547,9 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
@@ -561,9 +561,9 @@ evidence = "docs/COVERAGE.md#private-signer-invariant"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
@@ -579,9 +579,9 @@ block = 0
 id = 0
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
@@ -593,9 +593,9 @@ evidence = "docs/COVERAGE.md#constructed-envelope-encoding"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
@@ -611,21 +611,21 @@ block = 2
 id = 4
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
 
 [[coverage.exclusions]]
 file = "src/cose.rs"
-line = 173
+line = 177
 source = '.map_err(|_| VerifyError::Malformed("cannot re-encode COSE_Sign1"))?;'
 reason = "Successful coset decoding has produced a valid Sign1 object, preserves original protected bytes and validated an empty unprotected header. Re-serializing that object into Vec cannot introduce duplicate labels or an I/O failure."
 evidence = "docs/COVERAGE.md#constructed-envelope-encoding"
 targets = ["native"]
 
 [coverage.exclusions.evidence_sources]
-"src/cose.rs" = "84911ccce67109e3c473b06a5f6208ecfd36edb86ef7837fd4eeb9e4c79e9be1"
-"src/ring.rs" = "a6bf0d0f4b072115c2b52f4c46d13b55efcaf8411dd4d7ecdb456689cb247b58"
-"src/signer.rs" = "7b4eaf447f09b937aa88b99f10d1cfe25bac30c6fdb54a74a7a761bd38ff1811"
+"src/cose.rs" = "f9cb07022330962741c38b11e6b98798e35d90b457cba740103e969056c7b928"
+"src/ring.rs" = "2da3e5b0703308288acf6ceb4e70d2328fc692bbf1bfbc8b8f398126af84cdd4"
+"src/signer.rs" = "17758e76f3f8928538f3bd86661b9e5c4bbf6ae36d69a57cf5df52890f151630"
 "src/state.rs" = "7bc23440b631d5675ca5ea78a3e381e8c0cb4fc1d7e297cc019f270020e6e197"
