@@ -476,7 +476,7 @@ id = 0
 
 [[coverage.exclusions]]
 file = "src/ring.rs"
-line = 134
+line = 133
 source = 'return Err(RingError::Malformed("unexpected key parameter"));'
 reason = "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder."
 evidence = "docs/COVERAGE.md#raw-public-key-allowlist"
@@ -504,7 +504,7 @@ targets = ["native"]
 
 [[coverage.exclusions]]
 file = "src/ring.rs"
-line = 176
+line = 175
 source = 'return Err(RingError::Malformed("unexpected key parameter"));'
 reason = "KeyRing::from_cbor first validates a unique integer-key map against its closed COSE_Key allowlist; base IV/text labels/unknown parameters cannot reach the private KeyEntry decoder."
 evidence = "docs/COVERAGE.md#raw-public-key-allowlist"
