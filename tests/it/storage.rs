@@ -723,3 +723,18 @@ mod database {
         }
     }
 }
+
+#[tokio::test]
+async fn the_persistent_signer_commits_and_returns_the_verifiable_genesis() {
+    let store = MemoryStore::default();
+    let mut signer = PersistentSigner::create(store.clone(), "cmty:genesis", key(1), 100, 1000)
+        .await
+        .unwrap();
+    let document = signer.genesis().await.unwrap();
+    let genesis = csgn::verify_genesis(&document).unwrap();
+    assert_eq!(genesis.community(), "cmty:genesis");
+    assert_eq!(genesis.created_at(), 100);
+    assert_eq!(genesis.founding_key(), key(1).public_key());
+    // The signature was durably recorded: the stored revision moved past creation.
+    assert!(store.load("cmty:genesis").await.unwrap().unwrap().revision > 1);
+}
