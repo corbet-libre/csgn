@@ -229,3 +229,17 @@ fn genesis_times_must_match_the_creation_time_and_the_one_second_validity() {
         ));
     }
 }
+
+#[test]
+fn a_plain_rotation_leaves_no_genesis_even_at_revision_zero() {
+    let mut signer = Signer::new("community", key(1), 10, 1000).unwrap();
+    // The retired key signed something, so it stays in the ring after a rotation
+    // without a proof: ring revision 0 with two keys is no longer the founding ring.
+    signer.sign(Kind::Credential, b"x", 10, 20).unwrap();
+    signer.rotate(key(2), 11).unwrap();
+    assert_eq!(signer.ring_revision(), 0);
+    assert!(matches!(
+        signer.genesis(),
+        Err(csgn::SignError::TransitionRequired)
+    ));
+}
